@@ -21,7 +21,7 @@ export default function Login() {
     setLoading(true);
     try {
       const response = await axios.post(
-        'http://localhost:3500/auth/adminLogin',
+        `${import.meta.env.VITE_SERVER_URL}/auth/adminLogin`,
         { username, password },
         { headers: { 'Content-Type': 'application/json' } }
       );
