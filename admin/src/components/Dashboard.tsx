@@ -201,7 +201,7 @@ function MonthlyViewDisplay() {
     try {
       // Fetch Monthly Summary
       const summaryResponse = await axios.get(
-        `http://localhost:3500/admin/month-summary/${selectedYear}/${selectedMonth}`,
+        `${import.meta.env.VITE_SERVER_URL}/admin/month-summary/${selectedYear}/${selectedMonth}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -228,7 +228,7 @@ function MonthlyViewDisplay() {
       // Fetch Daily Reports for the month
       // Assuming you have a route like /admin/daily-reports/:year/:month
       const dailyReportsResponse = await axios.get(
-        `http://localhost:3500/admin/month-daily-reports/${selectedYear}/${selectedMonth}`,
+        `${import.meta.env.VITE_SERVER_URL}/admin/month-daily-reports/${selectedYear}/${selectedMonth}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -367,7 +367,7 @@ export default function Dashboard() {
   const fetchTodaysReport = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3500/admin/latest-report",
+        `${import.meta.env.VITE_SERVER_URL}/admin/latest-report`,
         {
           headers: {
             "Content-Type": "application/json",

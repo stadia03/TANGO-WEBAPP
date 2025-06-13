@@ -111,7 +111,7 @@ const DailyReportForm = () => {
   const fetchDate = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3500/user/server-date",
+        `${import.meta.env.VITE_SERVER_URL}/user/server-date`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -148,7 +148,7 @@ const DailyReportForm = () => {
     console.log(payload);
     try {
       const response = await axios.post(
-        "http://localhost:3500/user/daily-report",
+        `${import.meta.env.VITE_SERVER_URL}/user/daily-report`,
         payload,
         {
           headers: {

@@ -19,7 +19,7 @@ const location = useLocation();
     setLoading(true);
     try {
       const response = await axios.post(
-        'http://localhost:3500/auth/userLogin',
+        `${import.meta.env.VITE_SERVER_URL}/auth/userLogin`,
         { username, password },
         { headers: { 'Content-Type': 'application/json' } }
       );
