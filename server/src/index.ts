@@ -30,8 +30,8 @@ mongoose.connect(process.env.mongo_URL || 'ts')
 .catch((err)=>{
   console.log(err,"Can't connect to DB");
 })
-app.listen(3500,()=>{
-  console.log('server started in 3500!');
-})
+// app.listen(3500,()=>{
+//   console.log('server started in 3500!');
+// })
 
 export default app;
