@@ -143,7 +143,7 @@ const DailyReportForm = () => {
       occupancyPercentage: occupancy,
       arr,
       revPerRoom: revPar,
-      submittedBy: useUserStore.getState().name,
+      submittedBy: localStorage.getItem('userName'),
     };
     console.log(payload);
     try {
