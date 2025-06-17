@@ -66,7 +66,7 @@ router.post('/adminLogin', async (req, res): Promise<any>  => {
    // const token = jwt.sign({ _id: username }, process.env.JWT_SECRET_ADMIN ?? "");
     const token = jwt.sign(
   { _id: username },
-  process.env.JWT_SECRET_USER as any,
+  process.env.JWT_SECRET_ADMIN as any,
   { expiresIn: '24h' } // <-- 1 hour expiry
 );
 
