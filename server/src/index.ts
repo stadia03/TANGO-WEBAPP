@@ -32,10 +32,10 @@ app.use(express.json());
     app.use('/user', verifyToken('user'), userRoutes);
     app.use('/admin', verifyToken('admin'), adminRoutes);
 
-    const PORT = process.env.PORT || 3500;
-    app.listen(PORT, () => {
-      console.log(`✅ Server running on port ${PORT}`);
-    });
+    // const PORT = process.env.PORT || 3500;
+    // app.listen(PORT, () => {
+    //   console.log(`✅ Server running on port ${PORT}`);
+    // });
 
   } catch (err) {
     console.error('❌ Failed to start server:', err);
