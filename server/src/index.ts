@@ -31,6 +31,9 @@ app.options('*', cors()); // Preflight handling
 
 
 
+app.use(express.json());
+
+
 app.get('/',async(req,res)=>{
   res.send('server working!');
 })
