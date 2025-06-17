@@ -29,7 +29,8 @@ app.use('/auth',authRoutes);
 app.use('/user',verifyToken('user'),userRoutes);
 app.use('/admin',verifyToken('admin'),adminRoutes);
 
-mongoose.connect(process.env.mongo_URL || 'ts')
+// mongoose.connect(process.env.mongo_URL || 'ts')
+mongoose.connect("mongodb+srv://user:JwpBtCSy6cb3uHEM@stadia.nksyopz.mongodb.net/tango_report?retryWrites=true&w=majority")
 .catch((err)=>{
   console.log(err,"Can't connect to DB");
 })
