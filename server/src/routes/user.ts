@@ -10,20 +10,49 @@ router.get("/server-date", async (req, res) => {
   const formattedDate = `${date.getDate()} ${date
     .toLocaleString("default", { month: "long" })
     .toUpperCase()} ${date.getFullYear()}`;
-    
+
   res.status(200).send(formattedDate);
 });
 
-router.post("/daily-report", async (req, res) => {
+router.get('/latest-report', async (req, res):Promise<any> => {
+  try {
+
+    await dbConnect();
+
+    const lastEntry = await DailyReport
+      .findOne({})
+      .sort({ date: -1 }) // Most recent date first
+      .lean(); // Plain JS object for faster read
+  
+    if (!lastEntry) {
+      return res.status(404).json({ message: 'No daily reports found.' });
+    }
+
+    res.status(200).json(lastEntry);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error', details: (error as Error).message });
+  }
+});
+
+router.post("/daily-report", async (req, res): Promise <any> => {
   try {
     await dbConnect();
 
     const DATE = new Date(); // For dynamic date
-    // const DATE = new Date(2025, 5, 5); // Fixed date for testing
+    // const DATE = new Date(2025, 5, 7); // Fixed date for testing
 
     const day = DATE.getDate();
     const month = DATE.getMonth() + 1;
     const year = DATE.getFullYear();
+
+    // Check if a report for today already exists
+    const alreadyExists = await DailyReport.findOne({ day, month, year });
+
+    if (alreadyExists) {
+      return res.status(400).json({
+        message: "Report for today has already been submitted.",
+      });
+    }
 
     const newEntry = new DailyReport({
       date: DATE.toISOString(),
@@ -67,7 +96,8 @@ router.post("/daily-report", async (req, res) => {
       const daysCount = await DailyReport.countDocuments({ month, year });
 
       const updatedRoomSold = existingSummary.totalRoomSold + daily.roomSold;
-      const updatedRoomRevenue = existingSummary.totalRoomRevenue + daily.roomRevenue;
+      const updatedRoomRevenue =
+        existingSummary.totalRoomRevenue + daily.roomRevenue;
 
       existingSummary.totalRoomSold = updatedRoomSold;
       existingSummary.avgRoomPerDay = updatedRoomSold / daysCount;
