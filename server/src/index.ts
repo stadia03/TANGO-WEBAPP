@@ -10,6 +10,7 @@ import dbConnect from './utils/db';
 
 const app = express();
 
+
 app.use(cors({
   origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -18,22 +19,27 @@ app.use(cors({
 
 app.use(express.json());
 
-app.get('/', async (req, res) => {
-  res.send('server working!');
-});
+// Async server startup
+(async () => {
+  try {
+    await dbConnect(); 
 
-app.use('/auth', authRoutes);
-app.use('/user', verifyToken('user'), userRoutes);
-app.use('/admin', verifyToken('admin'), adminRoutes);
+    app.get('/', (req, res) => {
+      res.send('server working!');
+    });
 
-dbConnect().then(() => {
-  console.log("MongoDB connected successfully at startup");
-}).catch((err) => {
-  console.error("Initial DB connection failed:", err);
-});
+    app.use('/auth', authRoutes);
+    app.use('/user', verifyToken('user'), userRoutes);
+    app.use('/admin', verifyToken('admin'), adminRoutes);
 
-// app.listen(3500, () => {
-//   console.log('server started in 3500!');
-// });
+    const PORT = process.env.PORT || 3500;
+    app.listen(PORT, () => {
+      console.log(`✅ Server running on port ${PORT}`);
+    });
+
+  } catch (err) {
+    console.error('❌ Failed to start server:', err);
+  }
+})();
 
 export default app;
