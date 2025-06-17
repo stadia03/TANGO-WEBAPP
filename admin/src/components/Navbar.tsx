@@ -12,8 +12,8 @@ export default function Navbar() {
       </div>
       <div className="flex items-center gap-2 md:gap-5 text-black">
         <div className="   text-right font-semibold ">
-          <div className="text-lg md:text-2xl ">{useUserStore.getState().name}</div>
-          <div className="text-sm md:text-xl ">{useUserStore.getState().designation}</div>
+          <div className="text-lg md:text-2xl ">{localStorage.getItem('userName')}</div>
+          <div className="text-sm md:text-xl ">{localStorage.getItem('userDesignation')}</div>
         </div>
         <div>
           <img src="assets/admin_icon.png" className="h-10 md:h-16"></img>

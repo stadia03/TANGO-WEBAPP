@@ -26,6 +26,8 @@ const location = useLocation();
 
       if (response.data.token) {
         localStorage.setItem('token', response.data.token);
+        localStorage.setItem('userName', response.data.currentUser.name); // Store name
+        localStorage.setItem('userDesignation', response.data.currentUser.designation);
         useUserStore.getState().setName(response.data.currentUser.name);
         useUserStore.getState().setDesignation(response.data.currentUser.designation);
         useUserStore.getState().setAuth(true);

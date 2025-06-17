@@ -32,6 +32,8 @@ export default function Login() {
         useUserStore.getState().setName(response.data.currentUser.name);
         useUserStore.getState().setDesignation(response.data.currentUser.designation);
         useUserStore.getState().setAuth(true);
+        localStorage.setItem('userName', response.data.currentUser.name); // Store name
+        localStorage.setItem('userDesignation', response.data.currentUser.designation);
       } else {
         alert(response.data.message);
         console.log('Failed to get token');
