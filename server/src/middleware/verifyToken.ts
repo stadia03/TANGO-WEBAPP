@@ -7,9 +7,9 @@ export default function verifyToken(client: "admin" | "user") {
       let secret: string;
 
       if (client === "admin") {
-        secret = process.env.JWT_SECRET_ADMIN ?? "";
+        secret = process.env.JWT_SECRET_ADMIN as any;
       } else if (client === "user") {
-        secret = process.env.JWT_SECRET_USER ?? "";
+        secret = process.env.JWT_SECRET_USER as any;
       } else {
         res.status(400).send("Invalid client type.");
         return;
