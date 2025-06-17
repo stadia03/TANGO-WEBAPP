@@ -1,6 +1,7 @@
 import expres from 'express';
 import DailyReport from '../models/DailyReport';
 import MonthlySummary from '../models/MonthlySummary';
+import dbConnect from '../utils/db';
 
 const router = expres.Router();
 
@@ -9,11 +10,15 @@ router.get("/server-date", async (req, res) => {
   const formattedDate = `${date.getDate()} ${date
     .toLocaleString("default", { month: "long" })
     .toUpperCase()} ${date.getFullYear()}`;
-  res.send(formattedDate).status(200);
+  res.status(200).send(formattedDate);
+
 });
 
 router.get('/latest-report', async (req, res):Promise<any> => {
   try {
+
+    await dbConnect();
+
     const lastEntry = await DailyReport
       .findOne({})
       .sort({ date: -1 }) // Most recent date first
@@ -31,6 +36,9 @@ router.get('/latest-report', async (req, res):Promise<any> => {
 
 router.get('/latest-month-summary', async (req, res):Promise<any> => {
   try {
+
+    await dbConnect();
+
     const latestSummary = await MonthlySummary
       .findOne({})
       .sort({ year: -1, month: -1 }) // Sort by latest year, then month
@@ -54,15 +62,18 @@ router.get('/month-summary/:year/:month', async (req, res):Promise<any> => {
 //   const year = "2025";
 //   const month = "6";
   try {
+
+    await dbConnect();
+
     const summary = await MonthlySummary.findOne({
       year: parseInt(year),
       month: parseInt(month),
     }).lean();
-     const result = await MonthlySummary.findOne({
-      year: parseInt(year),
-      month: parseInt(month),
-    }).lean().explain('executionStats');
-console.log(result);
+//      const result = await MonthlySummary.findOne({
+//       year: parseInt(year),
+//       month: parseInt(month),
+//     }).lean().explain('executionStats');
+// console.log(result);
     if (!summary) {
       return res.status(404).json({ message: 'Monthly summary not found.' });
     }
@@ -77,6 +88,9 @@ router.get('/month-daily-reports/:year/:month', async (req, res):Promise<any> =>
   const { year, month } = req.params;
 
   try {
+
+    await dbConnect();
+
     const dailyReports = await DailyReport.find({
       year: parseInt(year),
       month: parseInt(month),

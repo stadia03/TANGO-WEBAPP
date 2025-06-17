@@ -1,6 +1,7 @@
 import express from "express";
 import DailyReport from "../models/DailyReport";
 import MonthlySummary from "../models/MonthlySummary";
+import dbConnect from "../utils/db";
 
 const router = express.Router();
 
@@ -9,37 +10,16 @@ router.get("/server-date", async (req, res) => {
   const formattedDate = `${date.getDate()} ${date
     .toLocaleString("default", { month: "long" })
     .toUpperCase()} ${date.getFullYear()}`;
-  res.send(formattedDate).status(200);
+    
+  res.status(200).send(formattedDate);
 });
 
 router.post("/daily-report", async (req, res) => {
   try {
-    // const roomSold = req.body.roomSold  ;
-    // const occupancyPercentage= req.body.occupancyPercentage  ;
-    // const totalPax= req.body.totalPax  ;
-    // const expectedArrival= req.body.expectedArrival  ;
-    // const stayOver= req.body.stayOver  ;
-    // const noShow= req.body.noShow  ;
-    // const roomRevenue= req.body.roomRevenue  ;
-    // const arr= req.body.arr  ;
-    // const revPerRoom= req.body.  ;
-    // const expectedDeparture= req.body.  ;
-    // const restaurantSale= req.body.  ;
-    // const mealPlanSale= req.body.  ;
-    // const barSale= req.body.  ;
-    // const mealPlanPax= req.body.  ;
-    // const roomsUpgraded= req.body.  ;
-    // const roomHalfDay= req.body.  ;
-    // const cld= req.body.  ;
-    // const cake= req.body.  ;
-    // const tableDecoration= req.body.  ;
-    // const expense= req.body.  ;
-    // const cashDeposit= req.body.  ;
-    // const pettyCash= req.body.  ;
-    // const totalRevenue= req.body.  ;
+    await dbConnect();
 
-    // const DATE = new Date();
-     const DATE = new Date(2025, 5, 5);
+    const DATE = new Date(); // For dynamic date
+    // const DATE = new Date(2025, 5, 5); // Fixed date for testing
 
     const day = DATE.getDate();
     const month = DATE.getMonth() + 1;
@@ -79,17 +59,15 @@ router.post("/daily-report", async (req, res) => {
     await newEntry.save();
 
     const daily = req.body;
-    const totalAvailableRooms = Number(process.env.TOTAL_ROOMS );
+    const totalAvailableRooms = Number(process.env.TOTAL_ROOMS);
 
-    // Find existing MonthlySummary
     const existingSummary = await MonthlySummary.findOne({ month, year });
 
     if (existingSummary) {
       const daysCount = await DailyReport.countDocuments({ month, year });
 
       const updatedRoomSold = existingSummary.totalRoomSold + daily.roomSold;
-      const updatedRoomRevenue =
-        existingSummary.totalRoomRevenue + daily.roomRevenue;
+      const updatedRoomRevenue = existingSummary.totalRoomRevenue + daily.roomRevenue;
 
       existingSummary.totalRoomSold = updatedRoomSold;
       existingSummary.avgRoomPerDay = updatedRoomSold / daysCount;
@@ -140,13 +118,11 @@ router.post("/daily-report", async (req, res) => {
 
     res.status(200).json({ message: "Data saved successfully!" });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        error: "Internal Server Error",
-        details: (error as Error).message,
-      });
+    res.status(500).json({
+      error: "Internal Server Error",
+      details: (error as Error).message,
+    });
   }
 });
 
-export default router; 
+export default router;
