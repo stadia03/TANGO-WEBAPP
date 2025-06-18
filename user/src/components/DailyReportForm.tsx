@@ -103,6 +103,7 @@ const DailyReportForm = () => {
   const [arr, updateARR] = useState<number | undefined>();
   const [revPar, updateRevPR] = useState<number | undefined>();
   const [date, setDate] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchDate(); // Call async function inside useEffect
@@ -137,13 +138,14 @@ const DailyReportForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
 
     const payload = {
       ...formData,
       occupancyPercentage: occupancy,
       arr,
       revPerRoom: revPar,
-      submittedBy: localStorage.getItem('userName'),
+      submittedBy: localStorage.getItem("userName"),
     };
     console.log(payload);
     try {
@@ -166,6 +168,8 @@ const DailyReportForm = () => {
         alert("Something went wrong while submitting the report.");
         console.error(error);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -290,16 +294,17 @@ const DailyReportForm = () => {
               value={formData.mealPlanSale}
               onChange={handleChange}
             />
-            <InputField
-              label="Bar Sale:"
-              name="barSale"
-              value={formData.barSale}
-              onChange={handleChange}
-            />
+            
             <InputField
               label="Meal Plan Pax:"
               name="mealPlanPax"
               value={formData.mealPlanPax}
+              onChange={handleChange}
+            />
+            <InputField
+              label="Bar Sale:"
+              name="barSale"
+              value={formData.barSale}
               onChange={handleChange}
             />
             <InputField
@@ -361,9 +366,21 @@ const DailyReportForm = () => {
 
           <button
             type="submit"
-            className="w-full py-3 px-6 rounded-md bg-blue-600 text-white font-semibold text-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors duration-200"
+            className="w-full py-3 px-6 rounded-md bg-blue-600 text-white font-semibold text-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors duration-200 flex justify-center items-center gap-2 disabled:opacity-50"
+            disabled={loading}
           >
-            SUBMIT REPORT
+            {loading ? (
+              <>
+                <img
+                  src="/assets/loading.svg"
+                  alt="Loading..."
+                  className="w-6 h-6 animate-spin"
+                />
+               
+              </>
+            ) : (
+              "SUBMIT REPORT"
+            )}
           </button>
         </form>
       </div>
