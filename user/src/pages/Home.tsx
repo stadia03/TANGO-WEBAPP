@@ -24,7 +24,7 @@ function Home() {
 
         const today = new Date();
         const isToday =
-          resReport.day === today.getDate() +1 &&
+          resReport.day === today.getDate()  &&
           resReport.month === today.getMonth() + 1 &&
           resReport.year === today.getFullYear();
 
