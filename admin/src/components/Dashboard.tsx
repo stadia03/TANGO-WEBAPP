@@ -57,15 +57,15 @@ interface MonthlySummary {
 
 function DailyReportDisplay({ report }: { report: DailyReport | undefined }) {
   const formattedDate =
-    report?.date &&
-    new Date(report.date)
-      .toLocaleDateString("en-GB", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      })
-      .toUpperCase();
-
+  report?.date &&
+  new Date(report.date).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "Asia/Kolkata", // Force IST timezone
+  }).toUpperCase();
+      // console.log(report?.date );
+      // console.log(formattedDate);
   return (
     <div className="bg-white p-4 rounded shadow">
       <h2 className="text-center font-semibold text-lg md:text-2xl mb-4">

@@ -38,7 +38,9 @@ router.post("/daily-report", async (req, res): Promise <any> => {
   try {
     await dbConnect();
 
-    const DATE = new Date(); // For dynamic date
+    // const DATE = new Date(); // For dynamic date
+    const DATE = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+
     // const DATE = new Date(2025, 5, 7); // Fixed date for testing
 
     const day = DATE.getDate();
