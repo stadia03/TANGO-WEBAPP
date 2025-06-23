@@ -60,6 +60,7 @@ const InputField: React.FC<InputFieldProps> = ({
       readOnly={readOnly}
       required={!readOnly}
       placeholder={placeholder}
+      min={type === "number" ? 0 : undefined} // ✅ Enforce non-negative numbers
       className={`
         w-full p-2 rounded-md border
         ${
