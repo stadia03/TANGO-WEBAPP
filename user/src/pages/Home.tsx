@@ -6,7 +6,6 @@ import axios from "axios";
 function Home() {
   const [isSubmittedToday, setIsSubmittedToday] = useState<boolean | null>(null);
   const [report, setLatestReport] = useState<any>(null);
-
   useEffect(() => {
     const fetchLatestReport = async () => {
       try {
@@ -38,8 +37,8 @@ function Home() {
     fetchLatestReport();
   }, []);
 
-const sendWhatsappReport = () => {
-  if (!report) return;
+const generateReportMessage = () => {
+  if (!report) return "";
 
   const reportDate = new Date(report.date).toLocaleDateString("en-IN", {
     weekday: "long",
@@ -73,20 +72,35 @@ const sendWhatsappReport = () => {
     ["Petty Cash", `₹${report.pettyCash}`],
   ];
 
-  const formattedBody = fields
-    .map(([label, value]) => `• ${label}: ${value}`)
-    .join("\n");
-
+  const formattedBody = fields.map(([label, value]) => `• ${label}: ${value}`).join("\n");
   const highlightedRevenue = `\n\n *Total Revenue: ₹${report.totalRevenue}*`;
   const footer = `\n\n_Sent via Tango-WebApp_`;
 
-  const fullMessage = ` *Daily Report - ${reportDate}*\n\n${formattedBody}${highlightedRevenue}${footer}`;
+  return ` *Daily Report - ${reportDate}*\n\n${formattedBody}${highlightedRevenue}${footer}`;
+};
+
+const sendWhatsappReport = () => {
+  const fullMessage = generateReportMessage();
+  if (!fullMessage) return;
 
   const encodedMessage = encodeURIComponent(fullMessage);
-  const phoneNumber = "919933292938"; // change as needed
+  const phoneNumber = "919933292938";
   const whatsappURL = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
 
   window.open(whatsappURL, "_blank");
+};
+
+const copyToClipboard = async () => {
+  const fullMessage = generateReportMessage();
+  if (!fullMessage) return;
+
+  try {
+    await navigator.clipboard.writeText(fullMessage);
+    alert("Report copied to clipboard!");
+  } catch (err) {
+    alert("Failed to copy to clipboard");
+    console.error("Clipboard copy failed:", err);
+  }
 };
 
 
@@ -196,12 +210,20 @@ const sendWhatsappReport = () => {
           <span className="font-bold">₹{report?.totalRevenue ?? "-"}</span>
         </div>
       </div>
+      <div className="flex justify-between items-center m-4">
     <button
     onClick={sendWhatsappReport}
-  className="w-full py-3 px-6 mt-4 rounded-md bg-green-200 text-black font-semibold text-lg hover:bg-green-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition-colors duration-200 border-2  border-green-700"
+  className=" py-3 px-6 rounded-md bg-green-200 text-black font-semibold text-lg hover:bg-green-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition-colors duration-200 border-2  border-green-700"
 >
   Send Full Report on Whatsapp
 </button>
+<button
+  onClick={copyToClipboard}
+  className=" py-3 px-6  rounded-md bg-yellow-100 text-black font-semibold text-lg hover:bg-yellow-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 transition-colors duration-200 border-2 border-yellow-600"
+>
+  Copy Report to Clipboard
+</button>
+</div>
         </div>
       ) : (
         <DailyReportForm />
