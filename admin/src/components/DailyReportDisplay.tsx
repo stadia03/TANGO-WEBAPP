@@ -36,7 +36,8 @@ export default function DailyReportDisplay({ report }: { report: DailyReport | u
   new Date(report.date).toLocaleDateString("en-GB", {
     day: "numeric",
     month: "long",
-    year: "numeric"
+    year: "numeric",
+     timeZone: "UTC"
   }).toUpperCase();
       // console.log(report?.date );
       // console.log(formattedDate);

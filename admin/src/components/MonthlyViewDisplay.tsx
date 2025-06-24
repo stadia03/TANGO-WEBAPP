@@ -258,6 +258,7 @@ export default function MonthlyViewDisplay() {
                 {new Date(report.date).toLocaleDateString("en-GB", {
                   day: "numeric",
                   month: "long",
+                  timeZone: "UTC"
                 })}
               </span>
               <p className="text-base text-gray-600">
@@ -289,6 +290,7 @@ export default function MonthlyViewDisplay() {
                 day: "numeric",
                 month: "long",
                 year: "numeric",
+                timeZone: "UTC",
               })}
             </h2>
             <ul className="space-y-1 text-sm max-h-[60vh] overflow-y-auto">
@@ -303,15 +305,20 @@ export default function MonthlyViewDisplay() {
               <li>No Show: {selectedReport.noShow}</li>
               <li>Restaurant Sale: ₹{selectedReport.restaurantSale}</li>
               <li>Bar Sale: ₹{selectedReport.barSale}</li>
-        
-             <li>Meal Plan Sale: ₹{selectedReport.mealPlanSale}-{selectedReport.mealPlanPax}Pax</li>
+
+              <li>
+                Meal Plan Sale: ₹{selectedReport.mealPlanSale}-
+                {selectedReport.mealPlanPax}Pax
+              </li>
               <li>CLD: {selectedReport.cld}</li>
               <li>Cake: {selectedReport.cake}</li>
               <li>Table Decoration: {selectedReport.tableDecoration}</li>
               <li>Cash Deposit: ₹{selectedReport.cashDeposit}</li>
               <li>Petty Cash: ₹{selectedReport.pettyCash}</li>
               <li>Expense: ₹{selectedReport.expense}</li>
-              <li className="font-bold">Total Revenue: ₹{selectedReport.totalRevenue.toFixed(2)}</li>
+              <li className="font-bold">
+                Total Revenue: ₹{selectedReport.totalRevenue.toFixed(2)}
+              </li>
             </ul>
             <button
               className="mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700"
