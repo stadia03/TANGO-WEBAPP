@@ -36,7 +36,6 @@ interface DailyReport {
   arr: number;
   revPerRoom: number;
   expectedArrival: number;
-  expectedDeparture: number;
   stayOver: number;
   noShow: number;
   restaurantSale: number;
@@ -51,6 +50,7 @@ interface DailyReport {
   expense: number;
   cashDeposit: number;
   pettyCash: number;
+  pettyCashBalance:number;
   totalRevenue: number;
 }
 
@@ -300,7 +300,6 @@ export default function MonthlyViewDisplay() {
               <li>ARR: ₹{selectedReport.arr}</li>
               <li>RevPAR: {selectedReport.revPerRoom}</li>
               <li>Expected Arrivals: {selectedReport.expectedArrival}</li>
-              <li>Expected Departures: {selectedReport.expectedDeparture}</li>
               <li>Stay Over: {selectedReport.stayOver}</li>
               <li>No Show: {selectedReport.noShow}</li>
               <li>Restaurant Sale: ₹{selectedReport.restaurantSale}</li>
@@ -314,8 +313,10 @@ export default function MonthlyViewDisplay() {
               <li>Cake: {selectedReport.cake}</li>
               <li>Table Decoration: {selectedReport.tableDecoration}</li>
               <li>Cash Deposit: ₹{selectedReport.cashDeposit}</li>
-              <li>Petty Cash: ₹{selectedReport.pettyCash}</li>
-              <li>Expense: ₹{selectedReport.expense}</li>
+              <li>Petty Cash Expense: -₹{selectedReport.pettyCash}</li>
+              
+              <li>Petty Cash Balance: ₹{selectedReport.pettyCashBalance}</li>
+              <li>Expense: -₹{selectedReport.expense}</li>
               <li className="font-bold">
                 Total Revenue: ₹{selectedReport.totalRevenue.toFixed(2)}
               </li>

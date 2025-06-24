@@ -12,7 +12,6 @@ interface DailyReport {
   arr: number;
   revPerRoom: number;
   expectedArrival: number;
-  expectedDeparture: number;
   stayOver: number;
   noShow: number;
   restaurantSale: number;
@@ -27,6 +26,7 @@ interface DailyReport {
   expense: number;
   cashDeposit: number;
   pettyCash: number;
+  pettyCashBalance: number;
   totalRevenue: number;
 }
 
@@ -78,10 +78,7 @@ export default function DailyReportDisplay({ report }: { report: DailyReport | u
           <span className="font-semibold">Expected Arrival</span>
           <span>{report?.expectedArrival ?? "-"}</span>
         </div>
-        <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
-          <span className="font-semibold">Expected Departure</span>
-          <span>{report?.expectedDeparture ?? "-"}</span>
-        </div>
+        
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
           <span className="font-semibold">Stay over</span>
           <span>{report?.stayOver ?? "-"}</span>
@@ -135,8 +132,12 @@ export default function DailyReportDisplay({ report }: { report: DailyReport | u
           <span>₹{report?.cashDeposit ?? "-"}</span>
         </div>
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
-          <span className="font-semibold">Petty Cash</span>
-          <span>₹{report?.pettyCash ?? "-"}</span>
+          <span className="font-semibold">Petty Cash Expense</span>
+          <span>- ₹{report?.pettyCash ?? "-"}</span>
+        </div>
+        <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
+          <span className="font-semibold">Petty Cash Balance</span>
+          <span>₹{report?.pettyCashBalance ?? "-"}</span>
         </div>
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
           <span className="font-bold">Total Revenue</span>

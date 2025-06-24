@@ -17,7 +17,6 @@ interface DailyReport {
   arr: number;
   revPerRoom: number;
   expectedArrival: number;
-  expectedDeparture: number;
   stayOver: number;
   noShow: number;
   restaurantSale: number;
@@ -32,6 +31,7 @@ interface DailyReport {
   expense: number;
   cashDeposit: number;
   pettyCash: number;
+  pettyCashBalance: number;
   totalRevenue: number;
 }
 

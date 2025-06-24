@@ -9,7 +9,6 @@ interface FormData {
   expectedArrival: number | undefined;
   stayOver: number | undefined;
   noShow: number | undefined;
-  expectedDeparture: number | undefined;
   roomRevenue: number | undefined;
   restaurantSale: number | undefined;
   mealPlanSale: number | undefined;
@@ -23,6 +22,7 @@ interface FormData {
   expense: number | undefined;
   cashDeposit: number | undefined;
   pettyCash: number | undefined;
+  pettyCashBalance: number | undefined;
   totalRevenue: number | undefined;
 }
 
@@ -83,7 +83,6 @@ const DailyReportForm = () => {
     expectedArrival: undefined,
     stayOver: undefined,
     noShow: undefined,
-    expectedDeparture: undefined,
     roomRevenue: undefined,
     restaurantSale: undefined,
     mealPlanSale: undefined,
@@ -97,6 +96,7 @@ const DailyReportForm = () => {
     expense: undefined,
     cashDeposit: undefined,
     pettyCash: undefined,
+    pettyCashBalance:undefined,
     totalRevenue: undefined,
   });
 
@@ -277,12 +277,7 @@ const DailyReportForm = () => {
               value={formData.expectedArrival}
               onChange={handleChange}
             />
-            <InputField
-              label="Expected Departure:"
-              name="expectedDeparture"
-              value={formData.expectedDeparture}
-              onChange={handleChange}
-            />
+          
             <InputField
               label="Restaurant Sale:"
               name="restaurantSale"
@@ -351,9 +346,15 @@ const DailyReportForm = () => {
               onChange={handleChange}
             />
             <InputField
-              label="Petty Cash:"
+              label="Petty Cash Expense:"
               name="pettyCash"
               value={formData.pettyCash}
+              onChange={handleChange}
+            />
+            <InputField
+              label="Petty Cash Balance:"
+              name="pettyCashBalance"
+              value={formData.pettyCashBalance}
               onChange={handleChange}
             />
             <InputField
