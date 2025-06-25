@@ -50,7 +50,6 @@ interface DailyReport {
   expense: number;
   cashDeposit: number;
   pettyCash: number;
-  pettyCashBalance:number;
   totalRevenue: number;
 }
 
@@ -312,11 +311,12 @@ export default function MonthlyViewDisplay() {
               <li>CLD: {selectedReport.cld}</li>
               <li>Cake: {selectedReport.cake}</li>
               <li>Table Decoration: {selectedReport.tableDecoration}</li>
+                <li>Expense: ₹ -{selectedReport.expense}</li>
               <li>Cash Deposit: ₹{selectedReport.cashDeposit}</li>
-              <li>Petty Cash Expense: -₹{selectedReport.pettyCash}</li>
+              <li>Petty Cash Balance: ₹ {selectedReport.pettyCash}</li>
               
-              <li>Petty Cash Balance: ₹{selectedReport.pettyCashBalance}</li>
-              <li>Expense: -₹{selectedReport.expense}</li>
+            
+            
               <li className="font-bold">
                 Total Revenue: ₹{selectedReport.totalRevenue.toFixed(2)}
               </li>

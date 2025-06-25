@@ -22,7 +22,6 @@ interface FormData {
   expense: number | undefined;
   cashDeposit: number | undefined;
   pettyCash: number | undefined;
-  pettyCashBalance: number | undefined;
   totalRevenue: number | undefined;
 }
 
@@ -60,7 +59,7 @@ const InputField: React.FC<InputFieldProps> = ({
       readOnly={readOnly}
       required={!readOnly}
       placeholder={placeholder}
-      min={type === "number" ? 0 : undefined} // ✅ Enforce non-negative numbers
+     min={type === "number" && name !== "pettyCash" ? 0 : undefined} // ✅ Enforce non-negative numbers except pettyCash
       className={`
         w-full p-2 rounded-md border
         ${
@@ -96,7 +95,6 @@ const DailyReportForm = () => {
     expense: undefined,
     cashDeposit: undefined,
     pettyCash: undefined,
-    pettyCashBalance:undefined,
     totalRevenue: undefined,
   });
 
@@ -345,16 +343,11 @@ const DailyReportForm = () => {
               value={formData.cashDeposit}
               onChange={handleChange}
             />
-            <InputField
-              label="Petty Cash Expense:"
-              name="pettyCash"
-              value={formData.pettyCash}
-              onChange={handleChange}
-            />
+           
             <InputField
               label="Petty Cash Balance:"
-              name="pettyCashBalance"
-              value={formData.pettyCashBalance}
+              name="pettyCash"
+              value={formData.pettyCash}
               onChange={handleChange}
             />
             <InputField

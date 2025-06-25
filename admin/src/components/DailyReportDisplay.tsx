@@ -26,7 +26,6 @@ interface DailyReport {
   expense: number;
   cashDeposit: number;
   pettyCash: number;
-  pettyCashBalance: number;
   totalRevenue: number;
 }
 
@@ -125,20 +124,17 @@ export default function DailyReportDisplay({ report }: { report: DailyReport | u
         </div>
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
           <span className="font-semibold">Expense</span>
-          <span>- ₹{report?.expense ?? "-"}</span>
+          <span>₹ -{report?.expense ?? "-"}</span>
         </div>
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
           <span className="font-semibold">Cash deposit</span>
           <span>₹{report?.cashDeposit ?? "-"}</span>
         </div>
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
-          <span className="font-semibold">Petty Cash Expense</span>
-          <span>- ₹{report?.pettyCash ?? "-"}</span>
+          <span className="font-semibold">Petty Cash Bal</span>
+          <span>₹ {report?.pettyCash ?? "-"}</span>
         </div>
-        <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
-          <span className="font-semibold">Petty Cash Balance</span>
-          <span>₹{report?.pettyCashBalance ?? "-"}</span>
-        </div>
+       
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
           <span className="font-bold">Total Revenue</span>
           <span className="font-bold">₹{report?.totalRevenue ?? "-"}</span>

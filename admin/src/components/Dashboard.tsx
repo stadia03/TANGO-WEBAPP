@@ -31,7 +31,6 @@ interface DailyReport {
   expense: number;
   cashDeposit: number;
   pettyCash: number;
-  pettyCashBalance: number;
   totalRevenue: number;
 }
 
