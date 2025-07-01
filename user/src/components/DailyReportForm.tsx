@@ -59,7 +59,7 @@ const InputField: React.FC<InputFieldProps> = ({
       readOnly={readOnly}
       required={!readOnly}
       placeholder={placeholder}
-     min={type === "number" && name !== "pettyCash" ? 0 : undefined} // ✅ Enforce non-negative numbers except pettyCash
+      min={type === "number" && name !== "pettyCash" ? 0 : undefined} // ✅ Enforce non-negative numbers except pettyCash
       className={`
         w-full p-2 rounded-md border
         ${
@@ -142,8 +142,8 @@ const DailyReportForm = () => {
     const payload = {
       ...formData,
       occupancyPercentage: occupancy,
-      arr,
-      revPerRoom: revPar,
+      arr: arr ?? 0,
+      revPerRoom: revPar ?? 0,
       submittedBy: localStorage.getItem("userName"),
     };
     console.log(payload);
@@ -275,7 +275,7 @@ const DailyReportForm = () => {
               value={formData.expectedArrival}
               onChange={handleChange}
             />
-          
+
             <InputField
               label="Restaurant Sale:"
               name="restaurantSale"
@@ -288,7 +288,7 @@ const DailyReportForm = () => {
               value={formData.mealPlanSale}
               onChange={handleChange}
             />
-            
+
             <InputField
               label="Meal Plan Pax:"
               name="mealPlanPax"
@@ -343,7 +343,7 @@ const DailyReportForm = () => {
               value={formData.cashDeposit}
               onChange={handleChange}
             />
-           
+
             <InputField
               label="Petty Cash Balance:"
               name="pettyCash"
@@ -371,7 +371,6 @@ const DailyReportForm = () => {
                   alt="Loading..."
                   className="w-6 h-6 animate-spin"
                 />
-               
               </>
             ) : (
               "SUBMIT REPORT"
