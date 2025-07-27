@@ -253,13 +253,21 @@ export default function MonthlyViewDisplay() {
               className="bg-gray-300 p-3 rounded cursor-pointer hover:bg-gray-400 transition"
               onClick={() => setSelectedReport(report)}
             >
-              <span className="font-semibold text-gray-800">
+              {/* <span className="font-semibold text-gray-800">
                 {new Date(report.date).toLocaleDateString("en-GB", {
                   day: "numeric",
                   month: "long",
                   timeZone: "UTC"
                 })}
+              </span> */}
+              <span className="font-semibold text-gray-800">
+                {new Date(report.date).toLocaleDateString("en-GB", {
+                  day: "numeric",
+                  month: "long",
+                  timeZone: "Asia/Kolkata",
+                })}
               </span>
+
               <p className="text-base text-gray-600">
                 Revenue: ₹{report.totalRevenue?.toFixed(2) ?? "-"} | Rooms:{" "}
                 {report.roomSold ?? "-"}
@@ -311,12 +319,10 @@ export default function MonthlyViewDisplay() {
               <li>CLD: {selectedReport.cld}</li>
               <li>Cake: {selectedReport.cake}</li>
               <li>Table Decoration: {selectedReport.tableDecoration}</li>
-                <li>Expense: ₹ -{selectedReport.expense}</li>
+              <li>Expense: ₹ -{selectedReport.expense}</li>
               <li>Cash Deposit: ₹{selectedReport.cashDeposit}</li>
               <li>Petty Cash Balance: ₹ {selectedReport.pettyCash}</li>
-              
-            
-            
+
               <li className="font-bold">
                 Total Revenue: ₹{selectedReport.totalRevenue.toFixed(2)}
               </li>
