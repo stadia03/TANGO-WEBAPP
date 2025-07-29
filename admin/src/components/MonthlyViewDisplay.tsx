@@ -253,18 +253,12 @@ export default function MonthlyViewDisplay() {
               className="bg-gray-300 p-3 rounded cursor-pointer hover:bg-gray-400 transition"
               onClick={() => setSelectedReport(report)}
             >
-              {/* <span className="font-semibold text-gray-800">
-                {new Date(report.date).toLocaleDateString("en-GB", {
-                  day: "numeric",
-                  month: "long",
-                  timeZone: "UTC"
-                })}
-              </span> */}
+            
               <span className="font-semibold text-gray-800">
                 {new Date(report.date).toLocaleDateString("en-GB", {
                   day: "numeric",
                   month: "long",
-                  timeZone: "Asia/Kolkata",
+                  timeZone: "UTC",
                 })}
               </span>
 
