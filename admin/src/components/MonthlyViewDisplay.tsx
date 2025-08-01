@@ -97,12 +97,12 @@ export default function MonthlyViewDisplay() {
     } catch (error: any) {
       setMonthlySummary(undefined);
       if (error.response?.status === 404) {
-        alert("Monthly summary not found for the selected period.");
+       
       } else if (error.response?.data?.message) {
         alert(error.response.data.message);
       } else {
         console.error("Error fetching monthly summary", error);
-        alert("An error occurred while fetching monthly summary");
+      
       }
     } finally {
       setLoadingSummary(false);
@@ -142,7 +142,8 @@ export default function MonthlyViewDisplay() {
 
   useEffect(() => {
     fetchMonthlyData();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedMonth, selectedYear]);
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -151,10 +152,6 @@ export default function MonthlyViewDisplay() {
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
-
-  const handleUpdateClick = () => {
-    fetchMonthlyData();
-  };
 
   const years = Array.from({ length: 11 }, (_, i) => currentYear - 5 + i);
 
@@ -187,13 +184,7 @@ export default function MonthlyViewDisplay() {
           ))}
         </select>
 
-        <button
-          className="px-4 py-2 bg-gray-800 text-white rounded-md font-semibold text-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2"
-          onClick={handleUpdateClick}
-          disabled={loadingSummary || loadingDailyReports}
-        >
-          {loadingSummary || loadingDailyReports ? "Updating..." : "Update"}
-        </button>
+    
       </div>
 
       <div className="bg-gray-300 p-3 rounded text-center text-sm md:text-lg font-semibold text-gray-800">
@@ -253,7 +244,6 @@ export default function MonthlyViewDisplay() {
               className="bg-gray-300 p-3 rounded cursor-pointer hover:bg-gray-400 transition"
               onClick={() => setSelectedReport(report)}
             >
-            
               <span className="font-semibold text-gray-800">
                 {new Date(report.date).toLocaleDateString("en-GB", {
                   day: "numeric",
