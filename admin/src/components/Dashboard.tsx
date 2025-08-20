@@ -66,6 +66,7 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
+    if (!localStorage.getItem("token")) return;  
     fetchTodaysReport();
 
     const checkScreenSize = () => setIsMobile(window.innerWidth < 768);

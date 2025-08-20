@@ -141,6 +141,7 @@ export default function MonthlyViewDisplay() {
   };
 
   useEffect(() => {
+    if (!localStorage.getItem("token")) return;  
     fetchMonthlyData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedMonth, selectedYear]);

@@ -7,54 +7,61 @@ import {
   useNavigate,
 } from "react-router-dom";
 
-import Home from "./pages/Home";
+import DailyReport from "./pages/DailyReport";
 import Login from "./pages/Login";
 
 import { useUserStore } from "./store";
+import PaymentReport from "./pages/PaymentReport";
 
 function App() {
   const { isAuth, setAuth } = useUserStore();
   const [expired, setExpired] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
-    if (token) {
-      try {
-        const payload = JSON.parse(atob(token.split(".")[1]));
-        const expiry = payload.exp * 1000;
+  if (token) {
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      const expiry = payload.exp * 1000;
 
-        if (Date.now() > expiry) {
-          localStorage.removeItem("token");
-          setAuth(false);
-          setExpired(true); // <-- token expired
-        } else {
-          setAuth(true);
-        }
-      } catch (err) {
-        setAuth(false);
+      if (Date.now() > expiry) {
+        // Logout immediately BEFORE rendering anything
         localStorage.removeItem("token");
+        setAuth(false);
+        setExpired(true);
+      } else {
+        setAuth(true);
       }
-    } else {
+    } catch (err) {
+      localStorage.removeItem("token");
       setAuth(false);
     }
-  }, [setAuth]);
+  } else {
+    setAuth(false);
+  }
+}, [setAuth]);
+
 
   return (
     <Router>
       {expired && <Navigate to="/login" state={{ expired: true }} replace />}
       <Routes>
         <Route
-          path="/"
-          element={isAuth ? <Home /> : <Navigate to="/login" />}
+          path="/*"
+          element={isAuth ? <DailyReport /> : <Navigate to="/login" />}
         />
         <Route
           path="/login"
           element={!isAuth ? <Login /> : <Navigate to="/home" />}
         />
         <Route
-          path="/home"
-          element={isAuth ? <Home /> : <Navigate to="/login" />}
+          path="/dailyreport"
+          element={isAuth ? <DailyReport /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/paymentreport"
+          element={isAuth ? <PaymentReport/> : <Navigate to="/login" />}
         />
       </Routes>
     </Router>
