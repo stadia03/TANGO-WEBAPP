@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useUserStore } from "../store";
 
+interface DailyReportFormProps {
+  onSubmitSuccess?: () => void;
+}
+
+
 interface FormData {
   roomSold: number | undefined;
   totalAdultPax: number | undefined;
@@ -74,7 +79,8 @@ const InputField: React.FC<InputFieldProps> = ({
   </div>
 );
 
-const DailyReportForm = () => {
+
+const DailyReportForm: React.FC<DailyReportFormProps> = ({ onSubmitSuccess })  => {
   const [formData, setFormData] = useState<FormData>({
     roomSold: undefined,
     totalAdultPax: undefined,
@@ -135,7 +141,7 @@ const DailyReportForm = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
 
@@ -146,7 +152,7 @@ const DailyReportForm = () => {
       revPerRoom: revPar ?? 0,
       submittedBy: localStorage.getItem("userName"),
     };
-    console.log(payload);
+
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_SERVER_URL}/user/daily-report`,
@@ -160,6 +166,10 @@ const DailyReportForm = () => {
       );
 
       alert(response.data.message);
+
+      // Call the callback to refresh parent component state
+      if(onSubmitSuccess) onSubmitSuccess();
+
     } catch (error: any) {
       if (error.response?.data?.message) {
         alert(`Error: ${error.response.data.message}`);
