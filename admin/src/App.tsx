@@ -11,7 +11,7 @@ import DailyReport from "./pages/DailyReport";
 import Login from "./pages/Login";
 
 import { useUserStore } from "./store";
-import PaymentReport from "./pages/PaymentReport";
+// import PaymentReport from "./pages/PaymentReport";
 
 function App() {
   const { isAuth, setAuth } = useUserStore();
@@ -59,10 +59,10 @@ function App() {
           path="/dailyreport"
           element={isAuth ? <DailyReport /> : <Navigate to="/login" />}
         />
-        <Route
+        {/* <Route
           path="/paymentreport"
           element={isAuth ? <PaymentReport/> : <Navigate to="/login" />}
-        />
+        /> */}
       </Routes>
     </Router>
   );

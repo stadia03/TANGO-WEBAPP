@@ -8,8 +8,8 @@ import {
 } from "react-router-dom";
 
 import DailyReport from "./pages/DailyReport";
-import NewBooking from "./pages/NewBooking";
-import ExistingBooking from "./pages/ExisitngBooking";
+// import NewBooking from "./pages/NewBooking";
+// import ExistingBooking from "./pages/ExisitngBooking";
 import Login from "./pages/Login";
 
 import { useUserStore } from "./store";
@@ -50,24 +50,24 @@ function App() {
       <Routes>
         <Route
           path="/*"
-          element={isAuth ? <ExistingBooking /> : <Navigate to="/login" />}
+          element={isAuth ? <DailyReport /> : <Navigate to="/login" />}
         />
         <Route
           path="/login"
-          element={!isAuth ? <Login /> : <Navigate to="/existingbooking" />}
+          element={!isAuth ? <Login /> : <Navigate to="/dailyreport" />}
         />
         <Route
           path="/dailyreport"
           element={isAuth ? <DailyReport /> : <Navigate to="/login" />}
         />
-         <Route
+         {/* <Route
           path="/newbooking"
           element={isAuth ? <NewBooking /> : <Navigate to="/login" />}
         />
          <Route
           path="/existingbooking"
           element={isAuth ? <ExistingBooking /> : <Navigate to="/login" />}
-        />
+        /> */}
       </Routes>
     </Router>
   );
