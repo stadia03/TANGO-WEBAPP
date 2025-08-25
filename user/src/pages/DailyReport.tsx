@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import DailyReportForm from "../components/DailyReportForm";
-import axios from "axios";
-
+import api from '../axiosConfig';
 function DailyReport() {
   const [isSubmittedToday, setIsSubmittedToday] = useState<boolean | null>(null);
   const [report, setLatestReport] = useState<any>(null);
@@ -12,7 +11,7 @@ function DailyReport() {
   const fetchLatestReport = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(
+      const res = await api.get(
         `${import.meta.env.VITE_SERVER_URL}/user/latest-report`,
         {
           headers: {

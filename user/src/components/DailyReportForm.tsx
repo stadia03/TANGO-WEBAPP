@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useUserStore } from "../store";
+import api from '../axiosConfig';
 
 interface DailyReportFormProps {
   onSubmitSuccess?: () => void;
@@ -116,7 +115,7 @@ const DailyReportForm: React.FC<DailyReportFormProps> = ({ onSubmitSuccess })  =
 
   const fetchDate = async () => {
     try {
-      const response = await axios.get(
+      const response = await api.get(
         `${import.meta.env.VITE_SERVER_URL}/user/server-date`,
         {
           headers: {
@@ -154,7 +153,7 @@ const DailyReportForm: React.FC<DailyReportFormProps> = ({ onSubmitSuccess })  =
     };
 
     try {
-      const response = await axios.post(
+      const response = await api.post(
         `${import.meta.env.VITE_SERVER_URL}/user/daily-report`,
         payload,
         {

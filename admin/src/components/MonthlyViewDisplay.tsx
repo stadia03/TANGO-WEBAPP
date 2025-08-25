@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-
+import api from '../axiosConfig';
 // Define the type for MonthlySummary
 interface MonthlySummary {
   month: number;
@@ -82,7 +81,7 @@ export default function MonthlyViewDisplay() {
     setLoadingSummary(true);
     setLoadingDailyReports(true);
     try {
-      const summaryResponse = await axios.get(
+      const summaryResponse = await api.get(
         `${
           import.meta.env.VITE_SERVER_URL
         }/admin/month-summary/${selectedYear}/${selectedMonth}`,
@@ -109,7 +108,7 @@ export default function MonthlyViewDisplay() {
     }
 
     try {
-      const dailyReportsResponse = await axios.get(
+      const dailyReportsResponse = await api.get(
         `${
           import.meta.env.VITE_SERVER_URL
         }/admin/month-daily-reports/${selectedYear}/${selectedMonth}`,

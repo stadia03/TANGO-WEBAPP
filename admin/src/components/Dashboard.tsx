@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from '../axiosConfig';
 import React from "react"; // Ensure React is imported if using JSX
 import DailyReportDisplay from "./DailyReportDisplay";
 import MonthlyViewDisplay from "./MonthlyViewDisplay";
@@ -45,7 +45,7 @@ export default function Dashboard() {
 
   const fetchTodaysReport = async () => {
     try {
-      const response = await axios.get(
+      const response = await api.get(
         `${import.meta.env.VITE_SERVER_URL}/admin/latest-report`,
         {
           headers: {

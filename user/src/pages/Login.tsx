@@ -1,4 +1,5 @@
-import axios from 'axios';
+
+import api from '../axiosConfig';
 import { useState,useEffect } from 'react';
 import { useUserStore } from '../store';
 import { useLocation } from "react-router-dom";
@@ -18,7 +19,7 @@ const location = useLocation();
 
     setLoading(true);
     try {
-      const response = await axios.post(
+      const response = await api.post(
         `${import.meta.env.VITE_SERVER_URL}/auth/userLogin`,
         { username, password },
         { headers: { 'Content-Type': 'application/json' } }

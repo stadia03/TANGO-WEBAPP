@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from '../axiosConfig';
 import { useState,useEffect } from 'react';
 import { useUserStore } from '../store';
 import { useLocation } from "react-router-dom";
@@ -20,7 +20,7 @@ export default function Login() {
 
     setLoading(true);
     try {
-      const response = await axios.post(
+      const response = await api.post(
         `${import.meta.env.VITE_SERVER_URL}/auth/adminLogin`,
         // 'http://localhost:3500/auth/adminLogin',
         { username, password },
