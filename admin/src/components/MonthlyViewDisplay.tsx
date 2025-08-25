@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import api from '../axiosConfig';
+import api from "../axiosConfig";
+import ExportExcelButton from "../components/ExportExcelButton";
 // Define the type for MonthlySummary
 interface MonthlySummary {
   month: number;
@@ -96,12 +97,10 @@ export default function MonthlyViewDisplay() {
     } catch (error: any) {
       setMonthlySummary(undefined);
       if (error.response?.status === 404) {
-       
       } else if (error.response?.data?.message) {
         alert(error.response.data.message);
       } else {
         console.error("Error fetching monthly summary", error);
-      
       }
     } finally {
       setLoadingSummary(false);
@@ -140,7 +139,7 @@ export default function MonthlyViewDisplay() {
   };
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) return;  
+    if (!localStorage.getItem("token")) return;
     fetchMonthlyData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedMonth, selectedYear]);
@@ -184,7 +183,11 @@ export default function MonthlyViewDisplay() {
           ))}
         </select>
 
-    
+        <ExportExcelButton
+          monthlySummary={monthlySummary}
+          dailyReportsInMonth={dailyReportsInMonth}
+          getMonthName={getMonthName}
+        />
       </div>
 
       <div className="bg-gray-300 p-3 rounded text-center text-sm md:text-lg font-semibold text-gray-800">
