@@ -26,9 +26,9 @@ function DailyReport() {
 
       const today = new Date();
       const isToday =
-        resReport.day === today.getDate() &&
-        resReport.month === today.getMonth() + 1 &&
-        resReport.year === today.getFullYear();
+        resReport.day === today.getUTCDate() &&
+        resReport.month === today.getUTCMonth() + 1 &&
+        resReport.year === today.getUTCFullYear();
 
       setIsSubmittedToday(isToday);
     } catch (error) {
