@@ -1,5 +1,6 @@
-src/utils/index.ts
 
+package-lock.json
+package-lock.json
 # Logs
 logs
 *.log
