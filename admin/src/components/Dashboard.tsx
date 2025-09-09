@@ -3,37 +3,8 @@ import api from '../axiosConfig';
 import React from "react"; // Ensure React is imported if using JSX
 import DailyReportDisplay from "./DailyReportDisplay";
 import MonthlyViewDisplay from "./MonthlyViewDisplay";
+import { DailyReportType } from "../types/DailyReport";
 // Define the type for the report data to improve type safety
-interface DailyReport {
-  date: string;
-  day: number; // Added day, month, year from schema
-  month: number;
-  year: number;
-  roomSold: number;
-  occupancyPercentage: number;
-  totalAdultPax: number;
-  totalChildPax: number;
-  roomRevenue: number;
-  arr: number;
-  revPerRoom: number;
-  expectedArrival: number;
-  stayOver: number;
-  noShow: number;
-  restaurantSale: number;
-  mealPlanPax: number;
-  mealPlanSale: number;
-  barSale: number;
-  roomsUpgraded: number;
-  roomHalfDay: number;
-  cld: number;
-  cake: number;
-  tableDecoration: number;
-  expense: number;
-  cashDeposit: number;
-  pettyCash: number;
-  totalRevenue: number;
-}
-
 
 
 
@@ -41,7 +12,7 @@ interface DailyReport {
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState<"day" | "month">("day");
   const [isMobile, setIsMobile] = useState(false);
-  const [todayReport, setTodayReport] = useState<DailyReport | undefined>();
+  const [todayReport, setTodayReport] = useState<DailyReportType | undefined>();
 
   const fetchTodaysReport = async () => {
     try {

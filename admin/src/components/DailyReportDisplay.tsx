@@ -1,35 +1,6 @@
-// Define the type for the report data to improve type safety
-interface DailyReport {
-  date: string;
-  day: number; // Added day, month, year from schema
-  month: number;
-  year: number;
-  roomSold: number;
-  occupancyPercentage: number;
-  totalAdultPax: number;
-  totalChildPax: number;
-  roomRevenue: number;
-  arr: number;
-  revPerRoom: number;
-  expectedArrival: number;
-  stayOver: number;
-  noShow: number;
-  restaurantSale: number;
-  mealPlanPax: number;
-  mealPlanSale: number;
-  barSale: number;
-  roomsUpgraded: number;
-  roomHalfDay: number;
-  cld: number;
-  cake: number;
-  tableDecoration: number;
-  expense: number;
-  cashDeposit: number;
-  pettyCash: number;
-  totalRevenue: number;
-}
+import { DailyReportType } from "../types/DailyReport";
 
-export default function DailyReportDisplay({ report }: { report: DailyReport | undefined }) {
+export default function DailyReportDisplay({ report }: { report: DailyReportType | undefined }) {
   const formattedDate =
   report?.date &&
   new Date(report.date).toLocaleDateString("en-GB", {
@@ -65,6 +36,15 @@ export default function DailyReportDisplay({ report }: { report: DailyReport | u
           <span className="font-semibold">Room Revenue</span>
           <span>₹{report?.roomRevenue ?? "-"}</span>
         </div>
+        <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
+          <span className="font-semibold">UPI Deposit</span>
+          <span>₹{report?.upiDeposit ?? "-"}</span>
+        </div>
+        <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
+          <span className="font-semibold">Bank Deposit</span>
+          <span>₹{report?.bankDeposit ?? "-"}</span>
+        </div>
+        
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
           <span className="font-semibold">ARR</span>
           <span>{report?.arr ?? "-"}</span>

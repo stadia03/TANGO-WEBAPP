@@ -1,57 +1,9 @@
 import React, { useEffect, useState } from "react";
 import api from "../axiosConfig";
 import ExportExcelButton from "../components/ExportExcelButton";
-// Define the type for MonthlySummary
-interface MonthlySummary {
-  month: number;
-  year: number;
-  totalRoomSold: number;
-  avgRoomPerDay: number;
-  avgOccupancy: number;
-  totalRoomRevenue: number;
-  arr: number;
-  revPerRoom: number;
-  totalRestaurantSale: number;
-  totalMealPlanSale: number;
-  totalBarSale: number;
-  totalCld: number;
-  totalCake: number;
-  totalExpense: number;
-  totalCashDeposit: number;
-  totalPettyCash: number;
-  totalMonthRevenue: number;
-}
+import { MonthlySummary, DailyReportType } from "../types/DailyReport";
 
-// Define the type for the report data to improve type safety
-interface DailyReport {
-  date: string;
-  day: number;
-  month: number;
-  year: number;
-  roomSold: number;
-  occupancyPercentage: number;
-  totalAdultPax: number;
-  totalChildPax: number;
-  roomRevenue: number;
-  arr: number;
-  revPerRoom: number;
-  expectedArrival: number;
-  stayOver: number;
-  noShow: number;
-  restaurantSale: number;
-  mealPlanPax: number;
-  mealPlanSale: number;
-  barSale: number;
-  roomsUpgraded: number;
-  roomHalfDay: number;
-  cld: number;
-  cake: number;
-  tableDecoration: number;
-  expense: number;
-  cashDeposit: number;
-  pettyCash: number;
-  totalRevenue: number;
-}
+
 
 // Helper to get month name from number
 const getMonthName = (monthNumber: number) => {
@@ -69,12 +21,12 @@ export default function MonthlyViewDisplay() {
   const [monthlySummary, setMonthlySummary] = useState<
     MonthlySummary | undefined
   >();
-  const [dailyReportsInMonth, setDailyReportsInMonth] = useState<DailyReport[]>(
+  const [dailyReportsInMonth, setDailyReportsInMonth] = useState<DailyReportType[]>(
     []
   );
   const [loadingSummary, setLoadingSummary] = useState(false);
   const [loadingDailyReports, setLoadingDailyReports] = useState(false);
-  const [selectedReport, setSelectedReport] = useState<DailyReport | null>(
+  const [selectedReport, setSelectedReport] = useState<DailyReportType | null>(
     null
   );
 
@@ -119,7 +71,7 @@ export default function MonthlyViewDisplay() {
         }
       );
       const sortedReports = dailyReportsResponse.data.sort(
-        (a: DailyReport, b: DailyReport) =>
+        (a: DailyReportType, b: DailyReportType) =>
           new Date(b.date).getTime() - new Date(a.date).getTime()
       );
       setDailyReportsInMonth(sortedReports);
@@ -203,6 +155,14 @@ export default function MonthlyViewDisplay() {
               <div>
                 Total Revenue: ₹
                 {monthlySummary.totalMonthRevenue?.toFixed(2) ?? "-"}
+              </div>
+              <div>
+                UPI Deposit: ₹
+                {monthlySummary.totalUpiDeposit?.toFixed(2) ?? "-"}
+              </div>
+              <div>
+                Bank Deposit: ₹
+                {monthlySummary.totalBankDeposit?.toFixed(2) ?? "-"}
               </div>
               <div>Room Sold: {monthlySummary.totalRoomSold ?? "-"}</div>
               <div>
@@ -291,6 +251,8 @@ export default function MonthlyViewDisplay() {
               <li>Room Sold: {selectedReport.roomSold}</li>
               <li>Occupancy: {selectedReport.occupancyPercentage}%</li>
               <li>Room Revenue: ₹{selectedReport.roomRevenue}</li>
+              <li>UPI Deposit: ₹{selectedReport.upiDeposit}</li>
+              <li>Bank Deposit: ₹{selectedReport.bankDeposit}</li>
               <li>ARR: ₹{selectedReport.arr}</li>
               <li>RevPAR: {selectedReport.revPerRoom}</li>
               <li>Expected Arrivals: {selectedReport.expectedArrival}</li>

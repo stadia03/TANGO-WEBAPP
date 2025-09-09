@@ -9,7 +9,7 @@ import {
 
 import DailyReport from "./pages/DailyReport";
 import Login from "./pages/Login";
-
+import EditReport from "./pages/EditReport";
 import { useUserStore } from "./store";
 // import PaymentReport from "./pages/PaymentReport";
 
@@ -59,10 +59,10 @@ function App() {
           path="/dailyreport"
           element={isAuth ? <DailyReport /> : <Navigate to="/login" />}
         />
-        {/* <Route
-          path="/paymentreport"
-          element={isAuth ? <PaymentReport/> : <Navigate to="/login" />}
-        /> */}
+        <Route
+          path="/edit-report"
+          element={isAuth ? <EditReport/> : <Navigate to="/login" />}
+        />
       </Routes>
     </Router>
   );

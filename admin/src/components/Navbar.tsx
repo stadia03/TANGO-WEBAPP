@@ -33,7 +33,7 @@ export default function Navbar() {
 
   const navLinks = [
     { to: "/dailyreport", text: "Daily Report" },
-    { to: "/paymentreport", text: "Payment Report" },
+    { to: "/edit-report", text: "Edit Report" },
   
   ];
 

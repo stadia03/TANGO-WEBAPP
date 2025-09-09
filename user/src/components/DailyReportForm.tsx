@@ -1,44 +1,11 @@
 import React, { useEffect, useState } from "react";
 import api from '../axiosConfig';
+import { FormData,InputFieldProps } from "../types/reportTypes";
 
 interface DailyReportFormProps {
   onSubmitSuccess?: () => void;
 }
 
-
-interface FormData {
-  roomSold: number | undefined;
-  totalAdultPax: number | undefined;
-  totalChildPax: number | undefined;
-  expectedArrival: number | undefined;
-  stayOver: number | undefined;
-  noShow: number | undefined;
-  roomRevenue: number | undefined;
-  restaurantSale: number | undefined;
-  mealPlanSale: number | undefined;
-  barSale: number | undefined;
-  mealPlanPax: number | undefined;
-  roomsUpgraded: number | undefined;
-  roomHalfDay: number | undefined;
-  cld: number | undefined;
-  cake: number | undefined;
-  tableDecoration: number | undefined;
-  expense: number | undefined;
-  cashDeposit: number | undefined;
-  pettyCash: number | undefined;
-  totalRevenue: number | undefined;
-}
-
-interface InputFieldProps {
-  label: string;
-  name: keyof FormData | string;
-  value?: number;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  type?: string;
-  readOnly?: boolean;
-  placeholder?: string;
-  className?: string;
-}
 
 const InputField: React.FC<InputFieldProps> = ({
   label,
@@ -100,6 +67,8 @@ const DailyReportForm: React.FC<DailyReportFormProps> = ({ onSubmitSuccess })  =
     expense: undefined,
     cashDeposit: undefined,
     pettyCash: undefined,
+    upiDeposit: undefined,
+    bankDeposit: undefined,
     totalRevenue: undefined,
   });
 
@@ -359,6 +328,21 @@ const DailyReportForm: React.FC<DailyReportFormProps> = ({ onSubmitSuccess })  =
               value={formData.pettyCash}
               onChange={handleChange}
             />
+           <InputField
+              label="UPI Deposit:"
+              name="upiDeposit"
+              value={formData.upiDeposit}
+              onChange={handleChange}
+              className="font-bold"
+            /> 
+            <InputField
+              label="Bank Deposit:"
+              name="bankDeposit"
+              value={formData.bankDeposit}
+              onChange={handleChange}
+              className="font-bold"
+            />
+            
             <InputField
               label="Total Revenue:"
               name="totalRevenue"
