@@ -30,7 +30,7 @@ export interface FormData {
   cashDeposit: number | undefined;
   pettyCash: number | undefined;
   upiDeposit: number | undefined;
-  bankDeposit: number | undefined;
+  cashReceived: number | undefined;
   totalRevenue: number | undefined;
 }
 

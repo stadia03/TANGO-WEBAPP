@@ -38,6 +38,8 @@ const ExportExcelButton: React.FC<ExportExcelButtonProps> = ({
       ["Total Expense", monthlySummary.totalExpense],
       ["Total Cash Deposit", monthlySummary.totalCashDeposit],
       ["Total Petty Cash", monthlySummary.totalPettyCash],
+      ["Total UPI Deposit", monthlySummary.totalUpiDeposit],
+      ["Total Cash Received", monthlySummary.totalCashReceived],
       ["Total Month Revenue", monthlySummary.totalMonthRevenue],
     ];
 
@@ -47,7 +49,8 @@ const ExportExcelButton: React.FC<ExportExcelButtonProps> = ({
             "Date", "Room Sold", "Occupancy %", "Total Adult Pax", "Total Child Pax",
             "Room Revenue", "ARR", "Rev Per Room", "Expected Arrival", "Stay Over", "No Show",
             "Restaurant Sale", "Meal Plan Pax", "Meal Plan Sale", "Bar Sale", "Rooms Upgraded",
-            "Room HalfDay", "CLD", "Cake", "Table Decoration", "Expense", "Cash Deposit", "Petty Cash", "Total Revenue"
+            "Room HalfDay", "CLD", "Cake", "Table Decoration", "Expense", "Cash Deposit", "Petty Cash",
+             "UPI Deposit", "Cash Received", "Total Revenue"
           ],
           ...dailyReportsInMonth.map((report) => [
             new Date(report.date).toLocaleDateString("en-GB", {
@@ -78,6 +81,8 @@ const ExportExcelButton: React.FC<ExportExcelButtonProps> = ({
             report.expense,
             report.cashDeposit,
             report.pettyCash,
+            report.upiDeposit,
+            report.cashReceived,
             report.totalRevenue,
           ]),
         ]

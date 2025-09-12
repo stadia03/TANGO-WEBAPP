@@ -26,7 +26,7 @@ export interface DailyReportType {
   cashDeposit: number;
   pettyCash: number;
   upiDeposit: number;
-  bankDeposit: number;
+  cashReceived: number;
   totalRevenue: number;
 }
 
@@ -51,7 +51,7 @@ export interface FormData {
   cashDeposit: number | undefined;
   pettyCash: number | undefined;
   upiDeposit: number | undefined;
-  bankDeposit: number | undefined;
+  cashReceived: number | undefined;
   totalRevenue: number | undefined;
 
 }
@@ -74,6 +74,6 @@ export interface MonthlySummary {
   totalCashDeposit: number;
   totalPettyCash: number;
   totalUpiDeposit: number;
-  totalBankDeposit: number;
+  totalCashReceived: number;
   totalMonthRevenue: number;
 }

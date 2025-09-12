@@ -68,7 +68,7 @@ const DailyReportForm: React.FC<DailyReportFormProps> = ({ onSubmitSuccess })  =
     cashDeposit: undefined,
     pettyCash: undefined,
     upiDeposit: undefined,
-    bankDeposit: undefined,
+    cashReceived: undefined,
     totalRevenue: undefined,
   });
 
@@ -329,16 +329,16 @@ const DailyReportForm: React.FC<DailyReportFormProps> = ({ onSubmitSuccess })  =
               onChange={handleChange}
             />
            <InputField
-              label="UPI Deposit:"
+              label="UPI Deposit (Bookings):"
               name="upiDeposit"
               value={formData.upiDeposit}
               onChange={handleChange}
               className="font-bold"
             /> 
             <InputField
-              label="Bank Deposit:"
-              name="bankDeposit"
-              value={formData.bankDeposit}
+              label="Cash Received (Bookings):"
+              name="cashReceived"
+              value={formData.cashReceived}
               onChange={handleChange}
               className="font-bold"
             />

@@ -94,7 +94,7 @@ export default function EditReport() {
           cashDeposit: foundReport.cashDeposit,
           pettyCash: foundReport.pettyCash,
           upiDeposit: foundReport.upiDeposit,
-          bankDeposit: foundReport.bankDeposit,
+          cashReceived: foundReport.bankDeposit,
           totalRevenue: foundReport.totalRevenue,
         };
 

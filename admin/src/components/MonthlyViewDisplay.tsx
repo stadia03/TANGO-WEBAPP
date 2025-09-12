@@ -161,8 +161,8 @@ export default function MonthlyViewDisplay() {
                 {monthlySummary.totalUpiDeposit?.toFixed(2) ?? "-"}
               </div>
               <div>
-                Bank Deposit: ₹
-                {monthlySummary.totalBankDeposit?.toFixed(2) ?? "-"}
+                Cash Received: ₹
+                {monthlySummary.totalCashReceived?.toFixed(2) ?? "-"}
               </div>
               <div>Room Sold: {monthlySummary.totalRoomSold ?? "-"}</div>
               <div>
@@ -252,7 +252,7 @@ export default function MonthlyViewDisplay() {
               <li>Occupancy: {selectedReport.occupancyPercentage}%</li>
               <li>Room Revenue: ₹{selectedReport.roomRevenue}</li>
               <li>UPI Deposit: ₹{selectedReport.upiDeposit}</li>
-              <li>Bank Deposit: ₹{selectedReport.bankDeposit}</li>
+              <li>Cash Received: ₹{selectedReport.cashReceived}</li>
               <li>ARR: ₹{selectedReport.arr}</li>
               <li>RevPAR: {selectedReport.revPerRoom}</li>
               <li>Expected Arrivals: {selectedReport.expectedArrival}</li>

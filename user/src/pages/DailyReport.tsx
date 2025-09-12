@@ -77,7 +77,7 @@ function DailyReport() {
       ["Expense", `₹${report.expense}`],
       ["Cash Deposit", `₹${report.cashDeposit}`],
       ["UPI Deposit", `₹${report.upiDeposit}`],
-      ["Bank Deposit", `₹${report.bankDeposit}`],
+      ["Cash Received", `₹${report.cashReceived}`],
       ["Petty Cash", `₹${report.pettyCash}`],
     ];
 
@@ -154,7 +154,7 @@ function DailyReport() {
               ["Cash deposit", `₹${report?.cashDeposit ?? "-"}`],
               ["Petty Cash", `₹${report?.pettyCash ?? "-"}`],
               ["UPI deposit", `₹${report?.upiDeposit ?? "-"}`],
-              ["Bank deposit", `₹${report?.bankDeposit ?? "-"}`],
+              ["Cash Received", `₹${report?.cashReceived ?? "-"}`],
             ].map(([label, value]) => (
               <div key={label} className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
                 <span className="font-semibold">{label}</span>

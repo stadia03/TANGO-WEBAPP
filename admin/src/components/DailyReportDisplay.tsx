@@ -41,8 +41,8 @@ export default function DailyReportDisplay({ report }: { report: DailyReportType
           <span>₹{report?.upiDeposit ?? "-"}</span>
         </div>
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
-          <span className="font-semibold">Bank Deposit</span>
-          <span>₹{report?.bankDeposit ?? "-"}</span>
+          <span className="font-semibold">Cash Received</span>
+          <span>₹{report?.cashReceived ?? "-"}</span>
         </div>
         
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
