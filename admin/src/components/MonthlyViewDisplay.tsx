@@ -277,12 +277,18 @@ export default function MonthlyViewDisplay() {
                 Total Revenue: {formatMoney(selectedReport.totalRevenue.toFixed(2))}
               </li>
             </ul>
-            <button
+            <div className="flex justify-end">
+            
+                  <button
               className="mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700"
               onClick={closeModal}
             >
               Close
             </button>
+               
+            
+              </div>
+            
           </div>
         </div>
       )}
