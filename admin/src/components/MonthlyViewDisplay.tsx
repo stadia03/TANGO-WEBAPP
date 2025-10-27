@@ -109,7 +109,7 @@ export default function MonthlyViewDisplay() {
   const closeModal = () => setSelectedReport(null);
 
   return (
-    <div className="bg-white p-4 rounded shadow space-y-4">
+    <div className="bg-white p-1 rounded shadow space-y-1">
       <div className="flex gap-2 items-center">
         <select
           className="flex-1 p-2 border border-gray-300 rounded-md bg-white text-gray-700 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-transparent"
@@ -142,15 +142,15 @@ export default function MonthlyViewDisplay() {
         />
       </div>
 
-      <div className="bg-gray-300 p-3 rounded text-center text-sm md:text-lg font-semibold text-gray-800">
+      <div className="bg-gray-300 p-2 rounded text-center text-sm md:text-lg font-semibold text-gray-800">
         {loadingSummary ? (
           "Loading Monthly Summary..."
         ) : monthlySummary ? (
           <>
-            <span className="font-bold">
+            {/* <span className="font-bold text-xs">
               MONTH SUMMARY ({getMonthName(monthlySummary.month).toUpperCase()}{" "}
             </span>
-            {monthlySummary.year})
+            {monthlySummary.year}) */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs md:text-base mt-2">
               <div>
                 Total Revenue: ₹
@@ -195,7 +195,7 @@ export default function MonthlyViewDisplay() {
         )}
       </div>
 
-      <div className="space-y-2 overflow-y-auto max-h-[calc(100vh-350px)] custom-scrollbar border p-2 rounded-lg bg-gray-100">
+      <div className="space-y-1 overflow-y-auto max-h-[calc(100vh-350px)] custom-scrollbar border p-2 rounded-lg bg-gray-100">
         {loadingDailyReports ? (
           <div className="text-center text-gray-500">
             Loading daily reports...
@@ -204,7 +204,7 @@ export default function MonthlyViewDisplay() {
           dailyReportsInMonth.map((report) => (
             <div
               key={report.date}
-              className="bg-gray-300 p-3 rounded cursor-pointer hover:bg-gray-400 transition"
+              className="bg-gray-300 px-4 py-2 rounded cursor-pointer hover:bg-gray-400 transition"
               onClick={() => setSelectedReport(report)}
             >
               <span className="font-semibold text-gray-800">
@@ -249,6 +249,7 @@ export default function MonthlyViewDisplay() {
             </h2>
             <ul className="space-y-1 text-sm max-h-[60vh] overflow-y-auto">
               <li>Room Sold: {selectedReport.roomSold}</li>
+              <li>Pax: {selectedReport.totalAdultPax} adults, {selectedReport.totalChildPax} childs</li>
               <li>Occupancy: {selectedReport.occupancyPercentage}%</li>
               <li>Room Revenue: ₹{selectedReport.roomRevenue}</li>
               <li>UPI Deposit: ₹{selectedReport.upiDeposit}</li>

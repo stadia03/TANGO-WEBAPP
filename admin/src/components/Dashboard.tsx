@@ -47,7 +47,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
+    <div className="min-h-screen bg-gray-100 p-2">
       {isMobile ? (
         <div>
           <div className="flex border border-gray-600 rounded-md overflow-hidden mb-2">
