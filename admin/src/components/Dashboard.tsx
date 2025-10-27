@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
-import api from '../axiosConfig';
+import api from "../axiosConfig";
 import React from "react"; // Ensure React is imported if using JSX
 import DailyReportDisplay from "./DailyReportDisplay";
 import MonthlyViewDisplay from "./MonthlyViewDisplay";
 import { DailyReportType } from "../types/DailyReport";
 // Define the type for the report data to improve type safety
-
-
 
 // Main Dashboard Component
 export default function Dashboard() {
@@ -37,7 +35,14 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) return;  
+    const savedTab = localStorage.getItem("activeTab") as
+      | "day"
+      | "month"
+      | null;
+    if (savedTab) {
+      setActiveTab(savedTab);
+    }
+    if (!localStorage.getItem("token")) return;
     fetchTodaysReport();
 
     const checkScreenSize = () => setIsMobile(window.innerWidth < 768);
@@ -57,7 +62,10 @@ export default function Dashboard() {
                   ? "bg-gray-800 text-white"
                   : "bg-gray-300 text-gray-700"
               }`}
-              onClick={() => setActiveTab("day")}
+              onClick={() => {
+                setActiveTab("day");
+                localStorage.setItem("activeTab", "day");
+              }}
             >
               TODAY
             </button>
@@ -67,7 +75,10 @@ export default function Dashboard() {
                   ? "bg-gray-800 text-white"
                   : "bg-gray-300 text-gray-700"
               }`}
-              onClick={() => setActiveTab("month")}
+              onClick={() => {
+                setActiveTab("month");
+                localStorage.setItem("activeTab", "month");
+              }}
             >
               MONTHLY
             </button>
