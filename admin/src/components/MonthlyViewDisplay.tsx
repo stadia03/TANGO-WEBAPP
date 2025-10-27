@@ -3,7 +3,7 @@ import api from "../axiosConfig";
 import ExportExcelButton from "../components/ExportExcelButton";
 import { MonthlySummary, DailyReportType } from "../types/DailyReport";
 
-
+import formatMoney from "../utils/formatMoney";
 
 // Helper to get month name from number
 const getMonthName = (monthNumber: number) => {
@@ -153,38 +153,38 @@ export default function MonthlyViewDisplay() {
             {monthlySummary.year}) */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs md:text-base mt-2">
               <div>
-                Total Revenue: ₹
-                {monthlySummary.totalMonthRevenue?.toFixed(2) ?? "-"}
+                Total Revenue: 
+                {formatMoney(monthlySummary.totalMonthRevenue?.toFixed(2) )}
               </div>
               <div>
-                UPI Deposit: ₹
-                {monthlySummary.totalUpiDeposit?.toFixed(2) ?? "-"}
+                UPI Deposit: 
+                {formatMoney(monthlySummary.totalUpiDeposit?.toFixed(2) )}
               </div>
               <div>
-                Cash Received: ₹
-                {monthlySummary.totalCashReceived?.toFixed(2) ?? "-"}
+                Cash Received: 
+                {formatMoney(monthlySummary.totalCashReceived?.toFixed(2))}
               </div>
               <div>Room Sold: {monthlySummary.totalRoomSold ?? "-"}</div>
               <div>
                 Avg Occupancy: {monthlySummary.avgOccupancy?.toFixed(2) ?? "-"}%
               </div>
               <div>
-                Total Room Revenue: ₹
-                {monthlySummary.totalRoomRevenue?.toFixed(2) ?? "-"}
+                Total Room Revenue: 
+                {formatMoney(monthlySummary.totalRoomRevenue?.toFixed(2) )}
               </div>
               <div>
-                Restaurant Sale: ₹
-                {monthlySummary.totalRestaurantSale?.toFixed(2) ?? "-"}
+                Restaurant Sale: 
+                {formatMoney(monthlySummary.totalRestaurantSale?.toFixed(2) )}
               </div>
               <div>
-                Meal Plan Sale: ₹
-                {monthlySummary.totalMealPlanSale?.toFixed(2) ?? "-"}
+                Meal Plan Sale: 
+                {formatMoney(monthlySummary.totalMealPlanSale?.toFixed(2) )}
               </div>
               <div>
-                Bar Sale: ₹{monthlySummary.totalBarSale?.toFixed(2) ?? "-"}
+                Bar Sale: {formatMoney(monthlySummary.totalBarSale?.toFixed(2) )}
               </div>
               <div>
-                Total Expense: ₹{monthlySummary.totalExpense?.toFixed(2) ?? "-"}
+                Total Expense: {formatMoney(monthlySummary.totalExpense?.toFixed(2) )}
               </div>
               <div>Total CLD: {monthlySummary.totalCld ?? "-"}</div>
               <div>Total Cake: {monthlySummary.totalCake ?? "-"}</div>
@@ -216,7 +216,7 @@ export default function MonthlyViewDisplay() {
               </span>
 
               <p className="text-base text-gray-600">
-                Revenue: ₹{report.totalRevenue?.toFixed(2) ?? "-"} | Rooms:{" "}
+                Revenue: {formatMoney(report.totalRevenue?.toFixed(2) )} | Rooms:{" "}
                 {report.roomSold ?? "-"}
               </p>
             </div>
@@ -251,30 +251,30 @@ export default function MonthlyViewDisplay() {
               <li>Room Sold: {selectedReport.roomSold}</li>
               <li>Pax: {selectedReport.totalAdultPax} adults, {selectedReport.totalChildPax} childs</li>
               <li>Occupancy: {selectedReport.occupancyPercentage}%</li>
-              <li>Room Revenue: ₹{selectedReport.roomRevenue}</li>
-              <li>UPI Deposit: ₹{selectedReport.upiDeposit}</li>
-              <li>Cash Received: ₹{selectedReport.cashReceived}</li>
-              <li>ARR: ₹{selectedReport.arr}</li>
+              <li>Room Revenue: {(selectedReport.roomRevenue)}</li>
+              <li>UPI Deposit: {formatMoney(selectedReport.upiDeposit)}</li>
+              <li>Cash Received: {formatMoney(selectedReport.cashReceived)}</li>
+              <li>ARR: {selectedReport.arr}</li>
               <li>RevPAR: {selectedReport.revPerRoom}</li>
               <li>Expected Arrivals: {selectedReport.expectedArrival}</li>
               <li>Stay Over: {selectedReport.stayOver}</li>
               <li>No Show: {selectedReport.noShow}</li>
-              <li>Restaurant Sale: ₹{selectedReport.restaurantSale}</li>
-              <li>Bar Sale: ₹{selectedReport.barSale}</li>
+              <li>Restaurant Sale: {formatMoney(selectedReport.restaurantSale)}</li>
+              <li>Bar Sale: {formatMoney(selectedReport.barSale)}</li>
 
               <li>
-                Meal Plan Sale: ₹{selectedReport.mealPlanSale}-
+                Meal Plan Sale: {formatMoney(selectedReport.mealPlanSale)}-
                 {selectedReport.mealPlanPax}Pax
               </li>
               <li>CLD: {selectedReport.cld}</li>
               <li>Cake: {selectedReport.cake}</li>
               <li>Table Decoration: {selectedReport.tableDecoration}</li>
-              <li>Expense: ₹ -{selectedReport.expense}</li>
-              <li>Cash Deposit: ₹{selectedReport.cashDeposit}</li>
-              <li>Petty Cash Balance: ₹ {selectedReport.pettyCash}</li>
+              <li>Expense:  -{formatMoney(selectedReport.expense)}</li>
+              <li>Cash Deposit: {formatMoney(selectedReport.cashDeposit)}</li>
+              <li>Petty Cash Balance:  {formatMoney(selectedReport.pettyCash)}</li>
 
               <li className="font-bold">
-                Total Revenue: ₹{selectedReport.totalRevenue.toFixed(2)}
+                Total Revenue: {formatMoney(selectedReport.totalRevenue.toFixed(2))}
               </li>
             </ul>
             <button

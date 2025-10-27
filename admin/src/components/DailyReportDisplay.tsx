@@ -1,5 +1,5 @@
 import { DailyReportType } from "../types/DailyReport";
-
+import formatMoney from "../utils/formatMoney";
 export default function DailyReportDisplay({ report }: { report: DailyReportType | undefined }) {
   const formattedDate =
   report?.date &&
@@ -11,6 +11,7 @@ export default function DailyReportDisplay({ report }: { report: DailyReportType
   }).toUpperCase();
       // console.log(report?.date );
       // console.log(formattedDate);
+    
   return (
     <div className="bg-white p-4 rounded shadow">
       <h2 className="text-center font-semibold text-lg md:text-2xl mb-4">
@@ -34,15 +35,15 @@ export default function DailyReportDisplay({ report }: { report: DailyReportType
         </div>
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
           <span className="font-semibold">Room Revenue</span>
-          <span>₹{report?.roomRevenue ?? "-"}</span>
+          <span>{formatMoney(report?.roomRevenue) }</span>
         </div>
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
           <span className="font-semibold">UPI Deposit</span>
-          <span>₹{report?.upiDeposit ?? "-"}</span>
+          <span>{formatMoney(report?.upiDeposit )}</span>
         </div>
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
           <span className="font-semibold">Cash Received</span>
-          <span>₹{report?.cashReceived ?? "-"}</span>
+          <span>{formatMoney(report?.cashReceived )}</span>
         </div>
         
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
@@ -68,7 +69,7 @@ export default function DailyReportDisplay({ report }: { report: DailyReportType
         </div>
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
           <span className="font-semibold">Restaurant Sale</span>
-          <span>₹{report?.restaurantSale ?? "-"}</span>
+          <span>{formatMoney(report?.restaurantSale)}</span>
         </div>
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
           <span className="font-semibold">Meal Plan Pax</span>
@@ -76,11 +77,11 @@ export default function DailyReportDisplay({ report }: { report: DailyReportType
         </div>
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
           <span className="font-semibold">Meal Plan Sale</span>
-          <span>₹{report?.mealPlanSale ?? "-"}</span>
+          <span>{formatMoney(report?.mealPlanSale)}</span>
         </div>
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
           <span className="font-semibold">Bar Sale</span>
-          <span>₹{report?.barSale ?? "-"}</span>
+          <span>{formatMoney(report?.barSale )}</span>
         </div>
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
           <span className="font-semibold">Rooms Upgraded</span>
@@ -104,20 +105,20 @@ export default function DailyReportDisplay({ report }: { report: DailyReportType
         </div>
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
           <span className="font-semibold">Expense</span>
-          <span>₹ -{report?.expense ?? "-"}</span>
+          <span> -{formatMoney(report?.expense )}</span>
         </div>
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
           <span className="font-semibold">Cash deposit</span>
-          <span>₹{report?.cashDeposit ?? "-"}</span>
+          <span>{formatMoney(report?.cashDeposit)}</span>
         </div>
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
           <span className="font-semibold">Petty Cash Bal</span>
-          <span>₹ {report?.pettyCash ?? "-"}</span>
+          <span> {formatMoney(report?.pettyCash )}</span>
         </div>
        
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
           <span className="font-bold">Total Revenue</span>
-          <span className="font-bold">₹{report?.totalRevenue ?? "-"}</span>
+          <span className="font-bold">{formatMoney(report?.totalRevenue )}</span>
         </div>
       </div>
     </div>
