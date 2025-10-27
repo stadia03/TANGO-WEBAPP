@@ -142,59 +142,54 @@ export default function MonthlyViewDisplay() {
         />
       </div>
 
-      <div className="bg-gray-300 p-2 rounded text-center text-sm md:text-lg font-semibold text-gray-800">
-        {loadingSummary ? (
-          "Loading Monthly Summary..."
-        ) : monthlySummary ? (
-          <>
-            {/* <span className="font-bold text-xs">
-              MONTH SUMMARY ({getMonthName(monthlySummary.month).toUpperCase()}{" "}
-            </span>
-            {monthlySummary.year}) */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs md:text-base mt-2">
-              <div>
-                Total Revenue: 
-                {formatMoney(monthlySummary.totalMonthRevenue?.toFixed(2) )}
-              </div>
-              <div>
-                UPI Deposit: 
-                {formatMoney(monthlySummary.totalUpiDeposit?.toFixed(2) )}
-              </div>
-              <div>
-                Cash Received: 
-                {formatMoney(monthlySummary.totalCashReceived?.toFixed(2))}
-              </div>
-              <div>Room Sold: {monthlySummary.totalRoomSold ?? "-"}</div>
-              <div>
-                Avg Occupancy: {monthlySummary.avgOccupancy?.toFixed(2) ?? "-"}%
-              </div>
-              <div>
-                Total Room Revenue: 
-                {formatMoney(monthlySummary.totalRoomRevenue?.toFixed(2) )}
-              </div>
-              <div>
-                Restaurant Sale: 
-                {formatMoney(monthlySummary.totalRestaurantSale?.toFixed(2) )}
-              </div>
-              <div>
-                Meal Plan Sale: 
-                {formatMoney(monthlySummary.totalMealPlanSale?.toFixed(2) )}
-              </div>
-              <div>
-                Bar Sale: {formatMoney(monthlySummary.totalBarSale?.toFixed(2) )}
-              </div>
-              <div>
-                Total Expense: {formatMoney(monthlySummary.totalExpense?.toFixed(2) )}
-              </div>
-              <div>Total CLD: {monthlySummary.totalCld ?? "-"}</div>
-              <div>Total Cake: {monthlySummary.totalCake ?? "-"}</div>
-            </div>
-          </>
-        ) : (
-          "No Monthly Summary Available"
-        )}
-      </div>
-
+   <div className="bg-gray-300 rounded py-1">
+  {loadingSummary ? (
+    "Loading Monthly Summary..."
+  ) : monthlySummary ? (
+    <div className="grid grid-cols-2 gap-y-1 text-sm md:text-base">
+      <div className="font-semibold text-gray-700 px-2">Total Revenue:</div>
+      <div className="text-gray-900 text-right px-2">{formatMoney(monthlySummary.totalMonthRevenue?.toFixed(2))}</div>
+      
+      <div className="font-semibold text-gray-700 bg-slate-100 px-2">UPI Deposit:</div>
+      <div className="text-gray-900 text-right bg-slate-100 px-2">{formatMoney(monthlySummary.totalUpiDeposit?.toFixed(2))}</div>
+      
+      <div className="font-semibold text-gray-700 px-2">Cash Received:</div>
+      <div className="text-gray-900 text-right px-2">{formatMoney(monthlySummary.totalCashReceived?.toFixed(2))}</div>
+      
+      <div className="font-semibold text-gray-700 bg-slate-100 px-2">Room Sold:</div>
+      <div className="text-gray-900 text-right bg-slate-100 px-2">{monthlySummary.totalRoomSold ?? "-"}</div>
+      
+      <div className="font-semibold text-gray-700 px-2">Total Pax:</div>
+      <div className="text-gray-900 text-right px-2">{monthlySummary.totalAdult ?? "-"} adults, {monthlySummary.totalChild ?? "-"} childs</div>
+      
+      <div className="font-semibold text-gray-700 bg-slate-100 px-2">Avg Occupancy:</div>
+      <div className="text-gray-900 text-right bg-slate-100 px-2">{monthlySummary.avgOccupancy?.toFixed(2) ?? "-"}%</div>
+      
+      <div className="font-semibold text-gray-700 px-2">Total Room Revenue:</div>
+      <div className="text-gray-900 text-right px-2">{formatMoney(monthlySummary.totalRoomRevenue?.toFixed(2))}</div>
+      
+      <div className="font-semibold text-gray-700 bg-slate-100 px-2">Restaurant Sale:</div>
+      <div className="text-gray-900 text-right bg-slate-100 px-2">{formatMoney(monthlySummary.totalRestaurantSale?.toFixed(2))}</div>
+      
+      <div className="font-semibold text-gray-700 px-2">Meal Plan Sale:</div>
+      <div className="text-gray-900 text-right px-2">{formatMoney(monthlySummary.totalMealPlanSale?.toFixed(2))}</div>
+      
+      <div className="font-semibold text-gray-700 bg-slate-100 px-2">Bar Sale:</div>
+      <div className="text-gray-900 text-right bg-slate-100 px-2">{formatMoney(monthlySummary.totalBarSale?.toFixed(2))}</div>
+      
+      <div className="font-semibold text-gray-700 px-2">Total Expense:</div>
+      <div className="text-gray-900 text-right px-2">{formatMoney(monthlySummary.totalExpense?.toFixed(2))}</div>
+      
+      <div className="font-semibold text-gray-700 bg-slate-100 px-2">Total CLD:</div>
+      <div className="text-gray-900 text-right bg-slate-100 px-2">{monthlySummary.totalCld ?? "-"}</div>
+      
+      <div className="font-semibold text-gray-700 px-2">Total Cake:</div>
+      <div className="text-gray-900 text-right px-2">{monthlySummary.totalCake ?? "-"}</div>
+    </div>
+  ) : (
+    "No Monthly Summary Available"
+  )}
+</div>
       <div className="space-y-1 overflow-y-auto max-h-[calc(100vh-350px)] custom-scrollbar border p-2 rounded-lg bg-gray-100">
         {loadingDailyReports ? (
           <div className="text-center text-gray-500">

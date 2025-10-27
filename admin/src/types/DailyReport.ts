@@ -76,4 +76,6 @@ export interface MonthlySummary {
   totalUpiDeposit: number;
   totalCashReceived: number;
   totalMonthRevenue: number;
+  totalAdult: number;
+  totalChild: number;
 }
