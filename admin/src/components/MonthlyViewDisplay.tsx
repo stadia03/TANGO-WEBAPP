@@ -246,7 +246,7 @@ export default function MonthlyViewDisplay() {
               <li>Room Sold: {selectedReport.roomSold}</li>
               <li>Pax: {selectedReport.totalAdultPax} adults, {selectedReport.totalChildPax} childs</li>
               <li>Occupancy: {selectedReport.occupancyPercentage}%</li>
-              <li>Room Revenue: {(selectedReport.roomRevenue)}</li>
+              <li>Room Revenue: {formatMoney(selectedReport.roomRevenue)}</li>
               <li>UPI Deposit: {formatMoney(selectedReport.upiDeposit)}</li>
               <li>Cash Received: {formatMoney(selectedReport.cashReceived)}</li>
               <li>ARR: {selectedReport.arr}</li>
