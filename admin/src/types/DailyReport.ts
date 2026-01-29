@@ -79,3 +79,55 @@ export interface MonthlySummary {
   totalAdult: number;
   totalChild: number;
 }
+
+export interface RangeSummaryData {
+  combinedSummary: {
+    startDate: string;
+    endDate: string;
+    monthsFound: number;
+    totalRoomSold: number;
+    totalRoomRevenue: number;
+    totalRestaurantSale: number;
+    totalMealPlanSale: number;
+    totalBarSale: number;
+    totalCld: number;
+    totalCake: number;
+    totalExpense: number;
+    totalCashDeposit: number;
+    totalPettyCash: number;
+    totalMonthRevenue: number;
+    totalUpiDeposit: number;
+    totalCashReceived: number;
+    totalAdult: number;
+    totalChild: number;
+    arr: number;
+    avgOccupancy: number;
+    revPerRoom: number;
+  };
+  monthlyReports: MonthlyReportItem[];
+}
+
+export interface MonthlyReportItem {
+  _id: string;
+  month: number;
+  year: number;
+  totalRoomSold: number;
+  avgRoomPerDay: number;
+  avgOccupancy: number;
+  totalRoomRevenue: number;
+  arr: number;
+  revPerRoom: number;
+  totalRestaurantSale: number;
+  totalMealPlanSale: number;
+  totalBarSale: number;
+  totalCld: number;
+  totalCake: number;
+  totalExpense: number;
+  totalCashDeposit: number;
+  totalPettyCash: number;
+  totalMonthRevenue: number;
+  totalUpiDeposit: number;
+  totalCashReceived: number;
+  totalAdult: number;
+  totalChild: number;
+}
