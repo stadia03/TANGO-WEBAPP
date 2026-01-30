@@ -10,10 +10,10 @@ import { MonthlyReportItem, RangeSummaryData } from "../types/DailyReport";
 
 // Helper to get month name
 const getMonthName = (monthNumber: number) => {
-  const date = new Date();
-  date.setMonth(monthNumber - 1);
+  const date = new Date(2020, monthNumber - 1, 1);
   return date.toLocaleDateString("en-US", { month: "long" });
 };
+
 
 // Reusable Summary Grid Component to avoid code duplication
 // We use this for the Top Combined View AND the Modal Detail View
@@ -132,7 +132,7 @@ export default function YearlyViewDisplay() {
   const [loading, setLoading] = useState(false);
   const [selectedMonthDetail, setSelectedMonthDetail] = useState<MonthlyReportItem | null>(null);
 
-  const years = Array.from({ length: 6 }, (_, i) => currentYear - 3 + i);
+  const years = Array.from({ length: 6 }, (_, i) => currentYear - 1 + i);
 
   const fetchYearlyData = async () => {
     setLoading(true);

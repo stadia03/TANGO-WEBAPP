@@ -7,10 +7,10 @@ import formatMoney from "../utils/formatMoney";
 
 // Helper to get month name from number
 const getMonthName = (monthNumber: number) => {
-  const date = new Date();
-  date.setMonth(monthNumber - 1);
+  const date = new Date(2020, monthNumber - 1, 1);
   return date.toLocaleDateString("en-US", { month: "long" });
 };
+
 
 export default function MonthlyViewDisplay() {
   const currentMonth = new Date().getMonth() + 1;
@@ -104,7 +104,7 @@ export default function MonthlyViewDisplay() {
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
 
-  const years = Array.from({ length: 11 }, (_, i) => currentYear - 5 + i);
+  const years = Array.from({ length: 11 }, (_, i) => currentYear - 1 + i);
 
   const closeModal = () => setSelectedReport(null);
 
