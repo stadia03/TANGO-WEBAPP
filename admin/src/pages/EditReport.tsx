@@ -96,7 +96,7 @@ export default function EditReport() {
           upiDeposit: foundReport.upiDeposit,
           cashReceived: foundReport.bankDeposit,
           totalRevenue: foundReport.totalRevenue,
-          spaSale: 0
+          spaSale: 0,
         };
 
         setFormData(next);
