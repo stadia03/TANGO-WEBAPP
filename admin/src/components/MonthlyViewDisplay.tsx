@@ -185,6 +185,9 @@ export default function MonthlyViewDisplay() {
       
       <div className="font-semibold text-gray-700 px-2">Total Cake:</div>
       <div className="text-gray-900 text-right px-2">{monthlySummary.totalCake ?? "-"}</div>
+
+       <div className="font-semibold text-gray-700 bg-slate-100 px-2">Total Spa:</div>
+      <div className="text-gray-900 text-right bg-slate-100 px-2">{formatMoney(monthlySummary.totalSpa?.toFixed(2))}</div>
     </div>
   ) : (
     "No Monthly Summary Available"
@@ -267,7 +270,7 @@ export default function MonthlyViewDisplay() {
               <li>Expense:  -{formatMoney(selectedReport.expense)}</li>
               <li>Cash Deposit: {formatMoney(selectedReport.cashDeposit)}</li>
               <li>Petty Cash Balance:  {formatMoney(selectedReport.pettyCash)}</li>
-
+               <li>Spa Sale:  {formatMoney(selectedReport.spaSale)}</li>
               <li className="font-bold">
                 Total Revenue: {formatMoney(selectedReport.totalRevenue.toFixed(2))}
               </li>

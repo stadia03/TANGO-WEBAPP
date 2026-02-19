@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import api from '../axiosConfig';
-import { FormData,InputFieldProps } from "../types/reportTypes";
+import { FormData, InputFieldProps } from "../types/reportTypes";
 
 interface DailyReportFormProps {
   onSubmitSuccess?: () => void;
 }
-
 
 const InputField: React.FC<InputFieldProps> = ({
   label,
@@ -30,7 +29,7 @@ const InputField: React.FC<InputFieldProps> = ({
       readOnly={readOnly}
       required={!readOnly}
       placeholder={placeholder}
-      min={type === "number" && name !== "pettyCash" ? 0 : undefined} // ✅ Enforce non-negative numbers except pettyCash
+      min={type === "number" && name !== "pettyCash" ? 0 : undefined}
       className={`
         w-full p-2 rounded-md border
         ${
@@ -45,8 +44,7 @@ const InputField: React.FC<InputFieldProps> = ({
   </div>
 );
 
-
-const DailyReportForm: React.FC<DailyReportFormProps> = ({ onSubmitSuccess })  => {
+const DailyReportForm: React.FC<DailyReportFormProps> = ({ onSubmitSuccess }) => {
   const [formData, setFormData] = useState<FormData>({
     roomSold: undefined,
     totalAdultPax: undefined,
@@ -58,6 +56,7 @@ const DailyReportForm: React.FC<DailyReportFormProps> = ({ onSubmitSuccess })  =
     restaurantSale: undefined,
     mealPlanSale: undefined,
     barSale: undefined,
+    spaSale: undefined,          // ✅ NEW FIELD
     mealPlanPax: undefined,
     roomsUpgraded: undefined,
     roomHalfDay: undefined,
@@ -72,14 +71,16 @@ const DailyReportForm: React.FC<DailyReportFormProps> = ({ onSubmitSuccess })  =
     totalRevenue: undefined,
   });
 
-  const [occupancy, updateOccupancy] = useState<number | undefined>();
-  const [arr, updateARR] = useState<number | undefined>();
-  const [revPar, updateRevPR] = useState<number | undefined>();
+  const [occupancy, setOccupancy] = useState<number | undefined>();
+  const [arr, setArr] = useState<number | undefined>();
+  const [revPar, setRevPar] = useState<number | undefined>();
   const [date, setDate] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const totalRooms = Number(import.meta.env.VITE_TOTAL_ROOMS) || 56; // fallback
+
   useEffect(() => {
-    fetchDate(); // Call async function inside useEffect
+    fetchDate();
   }, []);
 
   const fetchDate = async () => {
@@ -99,17 +100,62 @@ const DailyReportForm: React.FC<DailyReportFormProps> = ({ onSubmitSuccess })  =
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+  // Update calculated fields whenever roomSold or roomRevenue changes
+  const updateCalculations = (
+    changedField: "roomSold" | "roomRevenue",
+    newValue: number | undefined
+  ) => {
+    // Use the new value for the changed field, and current formData for the other
+    const roomSold =
+      changedField === "roomSold"
+        ? newValue ?? 0
+        : formData.roomSold ?? 0;
+    const roomRevenue =
+      changedField === "roomRevenue"
+        ? newValue ?? 0
+        : formData.roomRevenue ?? 0;
 
-    const numericValue = parseFloat(value);
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value === "" ? undefined : parseFloat(value),
-    }));
+    // Occupancy depends only on roomSold
+    if (changedField === "roomSold") {
+      if (roomSold > 0 && totalRooms > 0) {
+        setOccupancy(Math.ceil((roomSold * 10000) / totalRooms) / 100);
+      } else {
+        setOccupancy(undefined);
+      }
+    }
+
+    // ARR and RevPAR depend on both roomSold and roomRevenue
+    // ARR = Room Revenue / Room Sold (if roomSold > 0, else 0)
+    if (roomSold > 0) {
+      setArr(Number((roomRevenue / roomSold).toFixed(2)));
+    } else {
+      setArr(roomRevenue > 0 ? 0 : undefined); // if revenue but no rooms sold, ARR is undefined
+    }
+
+    // RevPAR = Room Revenue / Total Rooms
+    if (totalRooms > 0) {
+      setRevPar(Number((roomRevenue / totalRooms).toFixed(2)));
+    } else {
+      setRevPar(undefined);
+    }
   };
 
-   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    const numericValue = value === "" ? undefined : parseFloat(value);
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: numericValue,
+    }));
+
+    // Trigger calculations if roomSold or roomRevenue changed
+    if (name === "roomSold" || name === "roomRevenue") {
+      updateCalculations(name, numericValue);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
 
@@ -134,10 +180,7 @@ const DailyReportForm: React.FC<DailyReportFormProps> = ({ onSubmitSuccess })  =
       );
 
       alert(response.data.message);
-
-      // Call the callback to refresh parent component state
-      if(onSubmitSuccess) onSubmitSuccess();
-
+      if (onSubmitSuccess) onSubmitSuccess();
     } catch (error: any) {
       if (error.response?.data?.message) {
         alert(`Error: ${error.response.data.message}`);
@@ -147,39 +190,6 @@ const DailyReportForm: React.FC<DailyReportFormProps> = ({ onSubmitSuccess })  =
       }
     } finally {
       setLoading(false);
-    }
-  };
-
-  const calOccupancy = () => {
-    const totalRooms = Number(import.meta.env.VITE_TOTAL_ROOMS); // Assuming VITE_ prefix
-    const roomSold = Number(
-      (document.getElementsByName("roomSold")[0] as HTMLInputElement).value
-    );
-    if (!isNaN(roomSold) && totalRooms > 0) {
-      updateOccupancy(Math.ceil((roomSold * 10000) / totalRooms) / 100);
-      calARR();
-    } else {
-      updateOccupancy(undefined);
-    }
-  };
-
-  const calARR = () => {
-    const roomRev = Number(
-      (document.getElementsByName("roomRevenue")[0] as HTMLInputElement).value
-    );
-    const roomSold = Number(
-      (document.getElementsByName("roomSold")[0] as HTMLInputElement).value
-    );
-    const totalRooms = Number(import.meta.env.VITE_TOTAL_ROOMS);
-
-    if (roomRev > 0 && roomSold > 0) {
-      const arrValue = Number((roomRev / roomSold).toFixed(2));
-      const revParValue = Number((roomRev / totalRooms).toFixed(2));
-      updateARR(arrValue);
-      updateRevPR(revParValue);
-    } else {
-      updateARR(undefined);
-      updateRevPR(undefined);
     }
   };
 
@@ -196,10 +206,7 @@ const DailyReportForm: React.FC<DailyReportFormProps> = ({ onSubmitSuccess })  =
               label="Room sold:"
               name="roomSold"
               value={formData.roomSold}
-              onChange={(e) => {
-                handleChange(e);
-                calOccupancy();
-              }}
+              onChange={handleChange}
             />
             <InputField
               label="Occupancy %:"
@@ -235,10 +242,7 @@ const DailyReportForm: React.FC<DailyReportFormProps> = ({ onSubmitSuccess })  =
               label="Room Revenue:"
               name="roomRevenue"
               value={formData.roomRevenue}
-              onChange={(e) => {
-                handleChange(e);
-                calARR();
-              }}
+              onChange={handleChange}
             />
             <InputField label="ARR:" name="arr" value={arr} readOnly />
             <InputField
@@ -253,7 +257,6 @@ const DailyReportForm: React.FC<DailyReportFormProps> = ({ onSubmitSuccess })  =
               value={formData.expectedArrival}
               onChange={handleChange}
             />
-
             <InputField
               label="Restaurant Sale:"
               name="restaurantSale"
@@ -266,7 +269,6 @@ const DailyReportForm: React.FC<DailyReportFormProps> = ({ onSubmitSuccess })  =
               value={formData.mealPlanSale}
               onChange={handleChange}
             />
-
             <InputField
               label="Meal Plan Pax:"
               name="mealPlanPax"
@@ -277,6 +279,13 @@ const DailyReportForm: React.FC<DailyReportFormProps> = ({ onSubmitSuccess })  =
               label="Bar Sale:"
               name="barSale"
               value={formData.barSale}
+              onChange={handleChange}
+            />
+            {/* ✅ NEW SPA SALE FIELD */}
+            <InputField
+              label="Spa Sale:"
+              name="spaSale"
+              value={formData.spaSale}
               onChange={handleChange}
             />
             <InputField
@@ -321,20 +330,19 @@ const DailyReportForm: React.FC<DailyReportFormProps> = ({ onSubmitSuccess })  =
               value={formData.cashDeposit}
               onChange={handleChange}
             />
-
             <InputField
               label="Petty Cash Balance:"
               name="pettyCash"
               value={formData.pettyCash}
               onChange={handleChange}
             />
-           <InputField
+            <InputField
               label="UPI Deposit (Bookings):"
               name="upiDeposit"
               value={formData.upiDeposit}
               onChange={handleChange}
               className="font-bold"
-            /> 
+            />
             <InputField
               label="Cash Received (Bookings):"
               name="cashReceived"
@@ -342,7 +350,6 @@ const DailyReportForm: React.FC<DailyReportFormProps> = ({ onSubmitSuccess })  =
               onChange={handleChange}
               className="font-bold"
             />
-            
             <InputField
               label="Total Revenue:"
               name="totalRevenue"

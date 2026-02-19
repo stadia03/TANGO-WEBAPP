@@ -23,6 +23,10 @@ export default function DailyReportDisplay({ report }: { report: DailyReportType
           <span>{report?.roomSold ?? "-"}</span>
         </div>
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
+          <span className="font-semibold">No Show</span>
+          <span>{report?.noShow ?? "-"}</span>
+        </div>
+        <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
           <span className="font-semibold">Occupancy</span>
           <span>{report?.occupancyPercentage ?? "-"} %</span>
         </div>
@@ -63,10 +67,7 @@ export default function DailyReportDisplay({ report }: { report: DailyReportType
           <span className="font-semibold">Stay over</span>
           <span>{report?.stayOver ?? "-"}</span>
         </div>
-        <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
-          <span className="font-semibold">No Show</span>
-          <span>{report?.noShow ?? "-"}</span>
-        </div>
+        
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
           <span className="font-semibold">Restaurant Sale</span>
           <span>{formatMoney(report?.restaurantSale)}</span>
@@ -115,7 +116,10 @@ export default function DailyReportDisplay({ report }: { report: DailyReportType
           <span className="font-semibold">Petty Cash Bal</span>
           <span> {formatMoney(report?.pettyCash )}</span>
         </div>
-       
+        <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
+          <span className="font-semibold">Spa Sale</span>
+          <span> {formatMoney(report?.spaSale )}</span>
+        </div>
         <div className="flex justify-between border p-1 bg-white py-2 px-4 rounded-lg">
           <span className="font-bold">Total Revenue</span>
           <span className="font-bold">{formatMoney(report?.totalRevenue )}</span>

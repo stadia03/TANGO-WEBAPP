@@ -28,6 +28,7 @@ export interface DailyReportType {
   upiDeposit: number;
   cashReceived: number;
   totalRevenue: number;
+  spaSale:number;
 }
 
 export interface FormData {
@@ -53,6 +54,7 @@ export interface FormData {
   upiDeposit: number | undefined;
   cashReceived: number | undefined;
   totalRevenue: number | undefined;
+  spaSale : number | undefined;
 
 }
 
@@ -78,6 +80,7 @@ export interface MonthlySummary {
   totalMonthRevenue: number;
   totalAdult: number;
   totalChild: number;
+  totalSpa:number;
 }
 
 export interface RangeSummaryData {
@@ -100,6 +103,7 @@ export interface RangeSummaryData {
     totalCashReceived: number;
     totalAdult: number;
     totalChild: number;
+    totalSpa:number;
     arr: number;
     avgOccupancy: number;
     revPerRoom: number;
@@ -130,4 +134,5 @@ export interface MonthlyReportItem {
   totalCashReceived: number;
   totalAdult: number;
   totalChild: number;
+  totalSpa:number;
 }

@@ -32,5 +32,6 @@ export interface FormData {
   upiDeposit: number | undefined;
   cashReceived: number | undefined;
   totalRevenue: number | undefined;
+  spaSale: number | undefined;
 }
 
