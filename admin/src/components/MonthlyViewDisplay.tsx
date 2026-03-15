@@ -188,6 +188,8 @@ export default function MonthlyViewDisplay() {
 
        <div className="font-semibold text-gray-700 bg-slate-100 px-2">Total Spa:</div>
       <div className="text-gray-900 text-right bg-slate-100 px-2">{formatMoney(monthlySummary.totalSpa?.toFixed(2))}</div>
+    <div className="font-semibold text-gray-700 px-2">Total Cash Deposit:</div>
+      <div className="text-gray-900 text-right px-2">{formatMoney(monthlySummary.totalCashDeposit) ?? "-"}</div>
     </div>
   ) : (
     "No Monthly Summary Available"
