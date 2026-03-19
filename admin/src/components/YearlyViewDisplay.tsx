@@ -72,9 +72,9 @@ const SummaryGrid = ({ data }: { data: any }) => {
         {formatMoney(safeFix(data.totalExpense))}
       </div>
 
-      <div className="font-semibold text-gray-700 bg-slate-100 px-2 font-bold">ARR:</div>
+      <div className="font-semibold text-gray-700 bg-slate-100 px-2 font-bold">Cash Deposit:</div>
       <div className="text-gray-900 text-right bg-slate-100 px-2 ">
-        {formatMoney(safeFix(data.arr))}
+        {formatMoney(safeFix(data.totalCashDeposit))}
       </div>
     </div>
   );
